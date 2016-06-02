@@ -1,0 +1,230 @@
+\subsection{Upscaling}
+
+Our 2D computational domain consists of 5 contacting regions: two current collectors sandwiching a porous anode, a separator, and a porous cathode. The porous electrodes contain both, a solid matrix and a liquid electrolyte that fully occupies the voids within the solid matrix. The separator is considered to be a perfect electronic insulator, thus it only allows liquid ions to pass through. 
+
+For the simplest scenario of an ideally polarizable electrode, i.e.\ one where no Faradaic processes occur, a current transferred from the solid matrix to the solution phase goes towards only charging the double-layer at the electrode/electrolyte interface. This implies that:
+
+\begin{equation}
+\nabla \cdot \bold{i_l} = \frac{\partial a q}{\partial t}
+\label{eq:current liquid}
+\end{equation}
+where $\bold i_l$ is the current density in the liquid electrolyte phase, $a$ is the interfacial area per unit volume, and $q$ is the surface charge density of the double layer. 
+Since $q = C \Delta \Phi = C (\Phi_l - \Phi_s) = C \eta$, where $\eta$ is the surface overpotential, $C$ is the double-layer capacitance, and $\Phi_l$ and $\Phi_s$ are the liquid and solid potentials respectively,  Eq.~(\ref{eq:current liquid}) becomes:
+
+\begin{equation}
+\nabla \cdot \bold{i_l} = aC \frac{\partial \eta}{\partial t}
+\label{eq:current liquid capacitance}
+\end{equation}
+
+Due to the {\it overall} (considering that the length scale of the charged double layer $\ll$ the length scale of the electrodes) electroneutrality of the porous electrodes, we also have as a consequence of conservation of charge that:
+
+\begin{equation}
+\nabla \cdot \bold{i_s}  + \nabla \cdot \bold{i_l} = 0
+\label{eq:charge conservation}
+\end{equation}
+where $\bold i_s$ is the current density in the solid matrix phase.
+
+In the solid phase, the current density is the result of migration of electrons, which is goverened by Ohm's law according to:
+
+\begin{equation}
+\bold{i_s} = -\sigma \nabla \Phi_s
+\label{eq:solid current}
+\end{equation}
+where $\sigma$ is the solid matrix electronic conductivitiy.
+
+Similarly in the liquid phase, assuming that there are no concentration gradients or convection due to bulk fluid motion, the current density is solely a result of ion migration:
+
+\begin{equation}
+\bold{i_l} = -\kappa \nabla \Phi_l
+\end{equation}  
+where $\kappa$ is the liquid ionic conductivity.
+
+We are going to assume that (i) the current collectors are sufficiently thin, such that they could essentially be considered as homogeneous in the $x$-direction, (ii) property variations in the $y$-direction are negligible, such that our 2D domain could be reduced to a quasi-1D domain along $x$, and (iii) material properties are constants, independent of space and time.
+
+Using the above set of equations and assumptions, the governing equations of our ``high-fidelity" supercapacitor system reduce to:
+
+\begin{equation}
+aC \frac{\partial \eta}{\partial t} = - \kappa \frac{ \partial^2 \Phi_l}{\partial x^2} 
+\label{eq:liquid overpotential} 
+\end{equation}
+\begin{equation}
+aC \frac{\partial \eta}{\partial t} = \sigma \frac{ \partial^2 \Phi_s}{\partial x^2}  
+\label{eq:solid overpotential} 
+\end{equation}
+\begin{equation}
+\kappa \frac{ \partial^2 \Phi_l}{\partial x^2}  = 0 
+\label{eq:liquid separator}
+\end{equation}
+\\
+Note that Eqs.~(\ref{eq:liquid overpotential})--(\ref{eq:solid overpotential}) hold in the interior of the porous electrodes, while Eq.~(\ref{eq:liquid separator}) holds in the interior of the separator. Eq.~(\ref{eq:liquid separator}) is a result of the fact that the current density in the separator is carried entirely by the liquid current density, $\bold {i_l}$ (in other words, $\bold{i_s} = 0$).
+\\
+\textcolor{red}{Damien -- the above equations on their own are not closed, since I cannot see how one can compute the time evolution of $\Phi_s$ or $\Phi_l$ separately. The above equations provide us with a time evolution of the potential difference $\eta$, but not for the potential in each phase separately. 
+Since we are assuming that there are no Faradaic processes taking place, is the following true:
+$$ \frac{\partial \Phi_s}{\partial t} = - \nabla \cdot \bold{i_s} = \sigma \frac{\partial \Phi_s}{\partial x^2}$$
+}
+\\
+
+Let the anode current collector be at $x = 0$, the negative electrode be at $0 < x < L$, the separator be at $L < x < L+s$, the positive electrode be at $L+s < x <  2L+s$, and the cathode current collector be at $ x = 2L+s$.
+\textcolor{red}{Insert an illustrative schematic later...}
+
+The associated boundary and interface conditions for our domain are given by:
+\begin{equation}
+\left\{
+\renewcommand{\arraystretch}{1.5}
+\begin{array}{lcl}
+\bold{i_l} = -\kappa  \partial \Phi_l / \partial x = 0 \; ; \, \Phi_s = 0 &\quad&  x = 0\\
+\bold{i_s} = -\sigma  \partial \Phi_s / \partial x = 0  &\quad&  x = L\\
+\bold{i_s} = -\sigma  \partial \Phi_s / \partial x = 0  &\quad&  x = L+s\\
+\bold{i_l} = -\kappa  \partial \Phi_l / \partial x = 0 \; ; \, \bold{i_s} = -\sigma  \partial \Phi_s / \partial x = -I &\quad&  x = 2L+s \\
+-\kappa \frac{\partial \Phi_l}{\partial x}\bigg|_{x = L}\;  =\;-\kappa \frac{\partial \Phi_l}{\partial x}\bigg|_{x = L+s}\end{array}\right. 
+\label{eq:BCs}
+\end{equation}
+\\
+$I$ is the total current density at the current collector during charging or discharging. It is assumed that a constant current is applied at one of the current collectors during charging/discharging, while the other current collector is grounded (a different boundary condition could be chosen, but for the current analysis, we will adopt this one). There are no fluxes in or out of the computational domain, except for the input/output flux at the current collectors. Note that the last interface condition is actually a direct result of Eq.~(\ref{eq:liquid separator}), so including it as an interface condition is in some sense redundant.
+
+The supercapacitor is considered to be initially fully discharged, thus:
+\begin{equation}
+\Phi_s(x; t = 0) = \Phi_l(x; t = 0) = 0
+\label{eq:ICs}
+\end{equation}
+
+An anlytical solution for the spatio-temproal evolution of $\eta$ could be obtained through applying a change of variables, which transforms Eqs.~(\ref{eq:liquid overpotential})--(\ref{eq:solid overpotential}) into the familiar diffusion equation. The variable transformation technique will be outlined in what follows.
+
+Let $\eta' = (\bold{i_s} / \sigma) - (\bold{i_l} / \kappa)$. We first notice that:
+\begin{eqnarray}
+\eta' &=& - \frac{\partial \Phi_s}{\partial x} + \frac{\partial \Phi_l}{\partial x} \nonumber \\
+&=& \frac{\partial (\Phi_l - \Phi_s)}{\partial x} \nonumber \\
+&=& \frac{\partial \eta}{\partial x}
+\end{eqnarray}
+
+We also have that:
+$$
+aC \frac{\partial \eta}{\partial t} = \frac{\partial \bold{i_l}}{\partial x} = -\frac{\partial \bold{i_s}}{\partial x}
+$$
+Thus:
+$$
+\frac{\partial}{\partial x}\left(\frac{\bold{i_s}}{\sigma} - \frac{\bold{i_l}}{\kappa}\right) = -\left(\frac{aC}{\sigma} + \frac{aC}{\kappa}\right)\frac{\partial \eta}{\partial t}
+$$
+\begin{eqnarray}
+\Longrightarrow \frac{\partial \eta}{\partial t} &=& \left[\frac{\kappa\sigma}{aC(\kappa+\sigma)}\right]\frac{\partial \eta'}{\partial x} \nonumber \\
+\nonumber \\
+&=& -\left[\frac{\kappa\sigma}{aC(\kappa+\sigma)}\right]\frac{\partial^2 \eta}{\partial x^2} \nonumber \\
+\nonumber \\
+&=& -\alpha \frac{\partial^2 \eta}{\partial x^2}
+\end{eqnarray}
+\\
+where $\alpha = \kappa\sigma/[aC(\kappa+\sigma)]$.
+Consequently, an analytic solution for $\eta(x,t)$ and $\eta'(x,t)$ can be obtained using either Fourier series or Laplace transform.
+By the conservation of charge, we have that $I = \bold{i_s} + \bold{i_l} \Rightarrow \bold{i_l} = I - \bold{i_s}$.
+Therefore, to obtain the current density in the solid or liquid phase:
+\begin{eqnarray}
+\eta' = \frac{\bold{i_s}}{\sigma} - \frac{\bold{i_l}}{\kappa} &=& \frac{\bold{i_s}}{\sigma} - \frac{I}{\kappa} + \frac{\bold{i_s}}{\kappa} \nonumber \\
+\nonumber \\
+&=& \frac{(\kappa + \sigma)}{\sigma\kappa} \bold{i_s} - \frac{I}{\kappa} \nonumber \\
+\nonumber 
+%\Longrightarrow \bold{i_s} &=& \left(\eta' + \frac{I}{\kappa}\right)\frac{\sigma\kappa}{\kappa + \sigma}
+%\label{eq:current analytic}
+\end{eqnarray}
+\begin{equation}
+\Longrightarrow \bold{i_s} = \left(\eta' + \frac{I}{\kappa}\right)\frac{\sigma\kappa}{\kappa + \sigma}
+\label{eq:current analytic}
+\end{equation}
+\\
+Using Eqs.~(\ref{eq:solid current})\&(\ref{eq:current analytic}), we can obtain the potential in the soild matrix:
+\begin{equation}
+\Phi_s = - \int{\frac{\bold{i_s}}{\sigma} \; dx} \quad + \text{cst}
+\label{eq:potential analytic}
+\end{equation}
+In our system's domain, the constant in Eq.~(\ref{eq:potential analytic}) is zero for the left electrode (since the left current collector is grounded), while the constant is inferred indirectly from the the liquid potential, $\Phi_l$, and the overpotential, $\eta$, for the right electrode.
+
+
+In order to obtain the upscaled (averaged) equations, we are simply going to spatially average the governing Eqs.~(\ref{eq:liquid overpotential})--(\ref{eq:liquid separator}) over the entire domain length in the $x$-direction.  
+\\
+Averaging Eq.~(\ref{eq:liquid overpotential}) over $0 \le x \le L$ and $L+s \le x \le  2L+s$, we obtain: \begin{eqnarray}
+aC\frac{\partial \overline {\eta^{L}}}{\partial t} &=& -\frac{\kappa}{L} \left(\frac{\partial \Phi_l}{\partial x}\bigg|_{x=L} - \frac{\partial \Phi_l}{\partial x}\bigg|_{x=0}\right) \nonumber \\
+aC\frac{\partial \overline {\eta^{R}}}{\partial t} &=& -\frac{\kappa}{L} \left(\frac{\partial \Phi_l}{\partial x}\bigg|_{x=2L+s} - \frac{\partial \Phi_l}{\partial x}\bigg|_{x=L+s}\right)
+\end{eqnarray}
+\\
+where $\overline \eta = \overline \Phi_l - \overline \Phi_s$, and the superscripts $L$ and $R$ refer to the left and right electrodes respectively.
+From the boundary conditions in~(\ref{eq:BCs}), we have that $\bold{i_l} (x = 0) = \bold{i_l} (x = 2L+s) = 0$. Thus, the above averaged equations reduce to:
+\begin{eqnarray}
+aC\frac{\partial \overline {\eta^{L}}}{\partial t} &=& -\frac{\kappa}{L} \frac{\partial \Phi_l}{\partial x}\bigg|_{x=L} \nonumber \\
+aC\frac{\partial \overline {\eta^{R}}}{\partial t} &=& \frac{\kappa}{L} \frac{\partial \Phi_l}{\partial x}\bigg|_{x=L+s} 
+\label{eq:averaged liquid potential}
+\end{eqnarray}
+\\
+Similarly, averaging Eq.~(\ref{eq:solid overpotential}) and using the boundary conditions, we obtain:
+\begin{eqnarray}
+aC\frac{\partial \overline {\eta^{L}}}{\partial t} &=& -\frac{\sigma}{L} \frac{\partial \Phi_s}{\partial x}\bigg|_{x=0} \nonumber \\
+aC\frac{\partial \overline {\eta^{R}}}{\partial t} &=& \frac{\sigma}{L} \frac{\partial \Phi_s}{\partial x}\bigg|_{x=2L+s} 
+\label{eq:averaged solid potential}
+\end{eqnarray}
+\\
+%From Eq.~(\ref{eq:liquid separator}), we have that:
+%$$
+%\kappa \frac{ \partial \Phi_l}{\partial x}  = \text{constant} = c_1
+%$$
+%Which, after averaging along $x$, becomes:
+%\begin{equation}
+%\Delta \Phi_l = \Phi_l(x = L+s) - \Phi_l(x = L) = \frac{s \times c_1}{\kappa} = c_2
+%\label{separator potential drop}
+%\end{equation}
+Averaging Eq.~(\ref{eq:liquid separator}) along $L \le x \le L+s$, we simply get back the electode/separator interface condition:
+\begin{equation}
+\kappa \frac{\partial \Phi_l}{\partial x}\bigg|_{x = L}\;  =\;\kappa \frac{\partial \Phi_l}{\partial x}\bigg|_{x = L+s}
+\label{eq:average separator}
+\end{equation}
+\\
+From the averaged Eqs.~(\ref{eq:averaged liquid potential})--(\ref{eq:average separator}) above and the boundary conditions in~(\ref{eq:BCs}), we get that:
+\begin{equation}
+\frac{\partial \overline {\eta^{L}}}{\partial t} \;=\; -\frac{\partial \overline {\eta^{R}}}{\partial t}\; =\; \frac{-I}{aCL} 
+\end{equation}
+\begin{equation}
+\kappa \frac{\partial \Phi_l}{\partial x}\bigg|_{x = L} \;=\; \kappa \frac{\partial \Phi_l}{\partial x}\bigg|_{x = L+s}\; =\; I 
+\end{equation}
+\begin{equation}
+\sigma \frac{\partial \Phi_s}{\partial x}\bigg|_{x=0} \;=\; I 
+\end{equation}
+\\
+%Since $I$ is assumed to be known, as it is an imposed boundary condition, there appears to be no need to model any terms in order to obtain closure for the equations. The modeling inadequacy, if any, in this case would arise from the spatial averaging that we carried out. One way in which this inadequacy could be quantified is by comparing the time evolution of $\overline \eta$, or $\overline \Phi_s$ and $\overline \Phi_l$ using the upscaled equations, with the time evolution of these same quantities through first evolving $\eta$, $\Phi_s$ and $\Phi_l$ using the ``high-fidelity" equations and then spatially averaging them.
+Our goal is to compute the voltage or potential drop, $\Delta \Phi_\text{cell} = \Phi_c^R - \Phi_c^L$ across the entire electrochemical cell, where $\Phi_c$ is the potential of the current collector and the superscripts refer to the left and right collectors as before. Note that $\Phi_c = \overline \Phi_c$, due to our earlier assumption of spatially homogeneous current collectors. The discrepancy between the computed cell voltage using the upscaled model and the computed cell voltage using the high-fidelity equations, provides us with a measure to quantify the inadequacy of the upscaled model.
+
+Another measure of interest to us consists of the response of the solid and liquid potentials inside the electrodes to the imposed boundary condition at the current collector. The upscaled equations provide us with only the values of the currents at the interfaces, but not in the interior of the electrodes. Thus, one approach is to try to approximate the behavior of the current, and consequently that of the potential, by assuming a spatio-temporal current profile within the electrodes. The discrepancy between the high-fidelity potential response and that of the assumed upscaled response, provides us with another measure to quantify the inadequacy of the upscaled model.  
+
+%From the imposed boundary condition of a grounded left current collector, we already know that $\Phi_c^L = 0$ at all times. In order to calculate $\Delta \Phi_\text{cell}$, we still need to obtain the potential of the right current collector. There are basically two approaches through which we can obtain $\Phi_c^R$, depending on whether the cell is charging or discharging, and thus our knowledge of the right boundary condition. In the case of a discharging cell, we usually do not know a priori the current flux at the boundaries. For a charging cell, we can usually impose a constant current condition at the right boundary. In both cases though, we should have a continuity of the solid potential, i.e.\ $\Phi_c^{L\, ;\, R} = \Phi_s (x = 0\, ;\, x = 2L+s)$.  
+
+We know that $\bold{i_s} = I$ at the boundaries and $\bold{i_s} = 0$ at the interfaces, which precludes the solid current density being uniform in the electrodes. The simplest non-uniform profile we can assume for $\bold{i_s}$ in the interior of the electrodes is a linear profile. Thus, $\bold{i_s^L} = -I(x-L)/L$ and $\bold{i_s^R} = I(x-L-s)/L$.
+\textcolor{red}{(Direction of the current is given by the flux vector)}. 
+Consequently, since $\bold{i_s} = -\sigma \partial \Phi_s / \partial x$, we have that 
+\begin{equation}
+\Phi_s^L = \frac{I}{\sigma L} \left(\frac{x^2}{2} - Lx \right)
+\label{eq:left profile}
+\end{equation}
+\begin{equation}
+\Phi_s^R = \frac{-I}{\sigma L} \left(\frac{x^2}{2} - Lx -sx \right) + \text{cst}
+\label{eq:right profile}
+\end{equation}
+\\
+Note that the constant in Eq.~(\ref{eq:left profile}) is zero, since $\Phi_s^L (x = 0) = 0$, while the constant in Eq.~(\ref{eq:right profile}) can indirectly be inferred as before. 
+The above formulation could be generalized to higher order polynomial expansions, which could also include temporal variations as well according to the following:
+\begin{equation}
+\bold{i_s} = \sum_{n = 0}^{p} c_n (t) \; x^n
+\end{equation}
+ \begin{equation}
+\Phi_s = \sum_{n = 0}^{p} {\frac{c_n (t) \; x^{n+1}}{n+1}} \; +\; {c_0}' (t)
+\end{equation}
+\\
+The polynomial coefficients are determined through an optimization procedure, such as a least-squares minimization of the difference between the high-fidelity and upscaled observations.
+Boundary and interface conditions are then imposed as constraints during the optimization process. 
+Another route would be to formulate time evolution equations for the coefficients themselves \textcolor{red}{(I don't know how we could do this in a physically meaningful manner...I'm still thinking about it. What we know is that the solid current changes from being non-linear to linear as time evolves during the charging process.)}.    
+The above basis expansion could be further generalized through the use of PC expansions for example. 
+%The average solid phase potential in the left and right electrodes is given by:
+%$$
+%\overline {\Phi_s^L} = \frac{1}{L} \int_0^L {\Phi_s^L (x) \; dx}
+%$$
+%$$
+%\overline {\Phi_s^R} = \frac{1}{L} \int_{L+s}^{2L+s} {\Phi_s^R (x) \; dx}
+%$$
+%\\
+%\textcolor{red}{I hit a roadblock over here since what is still missing is the time evolution of $\overline \Phi_s$ and how to relate this time evolution to the flux at the boundaries. Damien -- once I receive your answer about my questions above, I can move forward with the formulation.}
+

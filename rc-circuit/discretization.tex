@@ -1,0 +1,54 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Finite element discretization}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+The finite element matrix formulation is derived in the usual fashion by
+multiplying the two potentials equations by test functions $\varphi_i$ and
+integrating over the whole domain.  It yields
+\begin{equation}
+    (M + \Delta t K) \Phi^{n+1} = \Delta t f + M \Phi^n
+\end{equation}
+where the unknown vector $\Phi = (\Phi_1, \Phi_2)^T$ contains the solid phase
+and electrolyte potentials at all nodes of the domain triangulation
+$\mathcal{T}^h(\Omega)$.  The superscript $n$ denotes the time discretization,
+$\Phi^n = \Phi(t^n)$ and $\Delta t = t^{n+1} - t^n$ is the time step.
+The approximation of the solution for the solid phase and electrolyte
+potentials at time $t=t^{n+1}$ are given by
+$\Phi_k^h(x,t^{n+1}) = \sum_j \Phi_{k,j}(t^{n+1}) \varphi_{j,\Phi_k}(x)$, 
+$k = 1, 2$.
+$M$ is the mass matrix
+\begin{equation}
+    M =
+    \begin{pmatrix}
+    \langle \varphi_{i,\Phi_1} \vert aC \varphi_{j,\Phi_1} \rangle_\Omega & - \langle \varphi_{i,\Phi_1} \vert aC \varphi_{j,\Phi_2} \rangle_\Omega \\
+    - \langle \varphi_{i,\Phi_2} \vert aC \varphi_{j,\Phi_1} \rangle_\Omega & \langle \varphi_{i,\Phi_2} \vert aC \varphi_{j,\Phi_2} \rangle_\Omega
+    \end{pmatrix}
+\end{equation}
+The stiffness matrix $K$ is defined by
+\begin{equation}
+    K =
+    \begin{pmatrix}
+    \langle \nabla \varphi_{i,\Phi_1} \vert \sigma \nabla \varphi_{j,\Phi_1} \rangle_\Omega & 0 \\
+    0 & \langle \nabla \varphi_{i,\Phi_2} \vert \kappa \nabla \varphi_{j,\Phi_2} \rangle_\Omega
+    \end{pmatrix}
+\end{equation}
+The stiffness matrix may be modified to take into consideration the faradaic
+processes (linearized version of the Butler-Volmer kinetics).
+\newcommand{\pluseq}{\mathrel{+}=}
+\begin{equation}
+    K \pluseq
+    \begin{pmatrix}
+    \langle \varphi_{i,\Phi_1} \vert a \frac{a i_o  F (\alpha_a + \alpha_c)}{RT} \varphi_{j,\Phi_1} \rangle_\Omega & - \langle \varphi_{i,\Phi_1} \vert \frac{a i_o (\alpha_a + \alpha_c) F}{RT} \varphi_{j,\Phi_2} \rangle_\Omega \\
+    - \langle \varphi_{i,\Phi_2} \vert \frac{a i_o  F (\alpha_a + \alpha_c)}{RT} \varphi_{j,\Phi_1} \rangle_\Omega & \langle \varphi_{i,\Phi_2} \vert \frac{a i_o (\alpha_a + \alpha_c) F}{RT} \varphi_{j,\Phi_2} \rangle_\Omega 
+    \end{pmatrix}
+\end{equation}
+The right-hand side $f$ accounts for the prescribed solid current density on
+the cathode current collector tab (current divided by tab surface area)
+\begin{equation}
+    f =
+    \begin{pmatrix}
+    \langle \varphi_{i,\Phi_1} \vert n \cdot \sigma \nabla \Phi_1 \rangle_{\partial\Omega} \\
+    0
+    \end{pmatrix}
+\end{equation}
+

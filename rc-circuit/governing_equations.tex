@@ -1,0 +1,58 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Governing equations}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+Ignoring the influence of the electrolyte concentration, the current density
+in the matrix and solution phases can be expressed by Ohm's law as
+\begin{align}
+    i_1 &= - \sigma \nabla \Phi_1 \\
+    i_2 &= - \kappa \nabla \Phi_2
+\end{align}
+$i$ and $\Phi$ represent current density and potential; subscript indices
+1 and 2 denote respectively the solid and the liquid phases.
+$\sigma$ and $\kappa$ are the matrix and solution phase conductivities.
+
+The total current density is given by $i = i_1 + i_2$.  Conservation of
+charge dictates that
+\begin{equation}
+    -\nabla \cdot i_1 = \nabla \cdot i_2 = a i_n
+\end{equation}
+where $a$ is the interfacial area per unit volume and the current transferred
+from the matrix phase to the electrolyte $i_n$ is the sum of the double-layer
+the faradaic currents
+\begin{align}
+    i_n %= i_{n,dl} + i_{n,f}
+    = C \frac{\partial}{\partial t} (\Phi_1 - \Phi_2)
+    + i_0 \left(
+        \exp  \frac{\alpha_a F}{RT} \eta
+        -
+        \exp -\frac{\alpha_c F}{RT} \eta
+    \right)
+\end{align}
+$C$ is the double-layer capacitance.  $i_0$ is the exchange current density,
+$\alpha_a$ and $\alpha_c$ the anodic and cathodic charge transfer
+coefficients, respectively.
+$F$, $R$, and $T$ stand for Faraday's constant, the universal gas constant and
+temperature.
+$\eta$ is the overpotential relative to the equilibrium potential $U_{eq}$
+\begin{equation}
+    \eta = \Phi_1  - \Phi_2 - U_{eq}
+\end{equation}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsubsection{Note}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+For simplicity, we consider for now a linearized version of the Butler-Volmer
+kinetics
+\begin{equation}
+    i_{n,f} \approx 
+        i_0 \frac{(\alpha_a + \alpha_c) F}{RT} \left( \Phi_1 - \Phi_2 \right)
+\end{equation}
+This is true for overpotentials with absolute value that does not exceed
+$RT/F$, which is approximatively 0.05 V at ambient temperature.
+Admittedly, we will use it beyond its validity range.
+
+$U_{eq}$ is a measure of the state of charge (it ``shifts'' the equilibrium).
+For now, we assume it is zero, which makes the supercapacitor behave similarly
+to a parallel resistor capacitor model.  At open circuit, the capacitor slowly
+discharges back to 0 V.
+

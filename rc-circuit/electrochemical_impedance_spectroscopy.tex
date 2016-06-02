@@ -1,0 +1,41 @@
+\section{Electrochemical impedance spectroscopy}
+
+\begin{figure}
+    \centering
+    \begin{circuitikz}
+        \draw (-0.5,0)
+        to[short,o-] (0,0)
+        to[generic,l=Z,v=U] (2,0)
+        to[short,i=I] (2.5,0)
+        to[short,-o] (3,0);
+    \end{circuitikz}
+    \caption{Electrical impedance.
+    }
+\end{figure}
+By definition, the impedance $\text{Z}$ is the measure of the opposition that
+an electrical element or circuit presents to a current when a voltage is
+applied.  It is the frequency domain ratio of the voltage to the current
+\begin{equation}
+    \text{Z} = \frac{\text{U}}{\text{I}}
+\end{equation}
+It is a complex number.
+\begin{equation}
+    \text{Z} = |\text{Z}| e^{j \arg(\text{Z})}
+    = \text{R} + j \text{X}
+\end{equation}
+The magnitude of the impedance $|\text{Z}|$ acts just like a resistance.  It
+gives the drop in voltage amplitude across an impedance $\text{Z}$ for a given
+current $\text{I}$.  The phase $\theta = \arg(\text{Z})$ tells by how much the
+current lags the voltage.
+The real part $\text{R} = |\text{Z}| \cos \theta$ and imaginary part
+$\text{X} = |\text{Z}| \sin \theta$ of the impedance are called resistance and
+reactance, respectively.  They are both measured in ohms ($\ohm$).
+If $\text{X} > 0$, the reactance is said to be inductive.
+If $\text{X} < 0$, the reactance is capacitive.
+If $\text{X} = 0$, then the impedance is purely resistive.  
+An inductor has a purely reactive impedance proportional to the signal
+frequency $f$ and inductance $\text{L}$, $\text{X}_\text{L} = 2\pi f \text{L}$.
+The impedance of a capacitor is inversely proportional to the frequency $f$
+and capacitance $\text{C}$, $\text{X}_\text{C} = \frac{1}{2\pi f \text{C}}$.
+
+
