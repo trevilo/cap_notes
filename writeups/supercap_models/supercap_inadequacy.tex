@@ -405,7 +405,7 @@ Q(u) - Q(u_0) \approx \mathcal{R}(u_0;z).
 This relation is the basis for many successful methods of \textit{a posteriori} error estimation of both modeling error and numerical error. Whenever $\mathcal{B}(\cdot;\cdot)$ is a bilinear form and $Q(\cdot)$ is linear, $\Delta \equiv 0$.
 
 %========================================================================
-\subsection{Estimation of error in LF model }
+\subsection{Error in over potential }
 Local residual can be obtained by substituting the solution of surrogate (LF) model into the base (HF) model such as
 %
 \begin{equation}
@@ -475,11 +475,73 @@ A_n &=& \int_0^1 \epsilon_0(\xi) \cos(n\pi\xi) d\xi. \nonumber
 \end{eqnarray}
 
 
-Consequently, through the information about the evolution of the error and information from the local residual, it might be possible to formulate the error in QoI, cell voltage, incurred from solving the low-fidelity equation without having to solve the high-fidelity system of equations,
+%========================================================================
+\subsection{Error in cell voltage}
+Through the information about the evolution of the error and information from the local residual, it might be possible to formulate the error in QoI, cell voltage, incurred from solving the low-fidelity equation without having to solve the high-fidelity system of equations,
 %
 \begin{equation}
 \mathcal{E} = Q(\eta_{HF}) - Q(\eta_{LF}) = V^*_{cell}(\eta_{HF}) - V^*_{cell}(\eta_{LF}).
 \end{equation}
+%
+Using (\ref{eq:Vcell}) above equation is equivalent to
+%
+\begin{equation}
+\mathcal{E} =  V^*_{electrode}(\eta_{HF}) - V^*_{electrode}(\eta_{LF}).
+\end{equation}
+%
+Substituting $V^*_{electrode}$ from (\ref{eq:Vellectrod}) and using the relation for error in over potential (\ref{eq:error}), one can write 
+%
+\begin{equation}\label{eq:error_V_eta}
+\mathcal{E} =  \frac{1+2\gamma}{1+\gamma}\epsilon(\xi=1,\tau) - \frac{\gamma}{1+\gamma}\epsilon(\xi=0,\tau)
+\end{equation}
+%
+From (\ref{eq:error_bcs}) 
+%
+\begin{eqnarray}
+\xi = 0 & \;\rightarrow\; \frac{\partial\epsilon}{\partial\xi}= 0 \;\rightarrow\; \frac{\partial^2\epsilon}{\partial\xi^2}= 0  \\
+\xi = 1 & \; \rightarrow\;\frac{\partial\epsilon}{\partial\xi}= 0 \;\rightarrow\; \frac{\partial^2\epsilon}{\partial\xi^2}= 0 \nonumber
+\end{eqnarray}
+%
+and plug into (\ref{eq:errorPDE}) along with the relation for local residual (\ref{eq:residual}) one can write
+%
+\begin{eqnarray}
+\xi = 0 \;\rightarrow\; \frac{\partial\epsilon}{\partial\tau}= 0 -\rho(\xi=0,\tau)& = &\frac{\partial I^*}{\partial\tau} \frac{1-2\gamma}{6(1+\gamma)}\\
+\xi = 1 \; \rightarrow\;\frac{\partial\epsilon}{\partial\tau}= 0 -\rho(\xi=1,\tau)& = &\frac{\partial I^*}{\partial\tau} \frac{\gamma-2}{6(1+\gamma)} \nonumber
+\end{eqnarray}
+%
+
+Integrating from both sides
+\begin{eqnarray}
+\xi = 0 \;\rightarrow\; \int\frac{\partial\epsilon}{\partial\tau} d\tau & = & \int \frac{\partial I^*}{\partial\tau} \frac{1-2\gamma}{6(1+\gamma)}d\tau \;\Rightarrow\; \epsilon(\xi=0,\tau)=\frac{1-2\gamma}{6(1+\gamma)} I^*(\tau) +C_1\\
+\xi = 1 \; \rightarrow\;\int\frac{\partial\epsilon}{\partial\tau} d\tau & = & \int \frac{\partial I^*}{\partial\tau} \frac{\gamma-2}{6(1+\gamma)}d\tau  \;\Rightarrow\; \epsilon(\xi=1,\tau)=\frac{\gamma-2}{6(1+\gamma)} I^*(\tau) +C_2, \nonumber
+\end{eqnarray}
+%
+where constant $C_1$ and $C_2$ can be determine from the initial condition $\epsilon(\xi,\tau=0)=\epsilon_0(\xi)$ such as
+%
+\begin{eqnarray}
+\xi = 0 &\rightarrow& C_1 = \epsilon_0(\xi=0) - \frac{1-2\gamma}{6(1+\gamma)} I^*(\tau=0)\\
+\xi = 1 &\rightarrow& C_2 = \epsilon_0(\xi=1) - \frac{\gamma-2}{6(1+\gamma)}  I^*(\tau=0), \nonumber
+\end{eqnarray}
+
+From above relation, (\ref{eq:error_V_eta}) can be written as
+%
+\begin{eqnarray}\label{eq:error_Velectrod}
+\mathcal{E} &=& \frac{2\gamma+1}{\gamma+1}\left[\epsilon_0(\xi=1) + \frac{\gamma-2}{6(1+\gamma)}(I^* - I^*(\tau=0))  \right]\\
+&-& \frac{\gamma}{1+\gamma}\left[\epsilon_0(\xi=0) + \frac{1-2\gamma}{6(1+\gamma)}(I^* - I^*(\tau=0)) \right]. \nonumber
+\end{eqnarray}
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 %========================================================================
