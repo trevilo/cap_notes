@@ -117,7 +117,7 @@ the governing equations of the supercapacitor system reduce to
 %
 \begin{eqnarray}
 aC\frac{\partial\eta}{\partial t} &=& -\kappa\frac{\partial^2\phi_2}{\partial x^2} \\ 
-aC\frac{\partial\eta}{\partial t} &=& -\sigma\frac{\partial^2\phi_1}{\partial x^2} \label{eq:eta_phi1}\\ 
+aC\frac{\partial\eta}{\partial t} &=& \sigma\frac{\partial^2\phi_1}{\partial x^2} \label{eq:eta_phi1}\\ 
 \kappa\frac{\partial^2\phi_2}{\partial x^2} &=& 0 
 \end{eqnarray}
 %
@@ -453,7 +453,7 @@ Initial condition of (\ref{eq:errorPDE}) can be easily obtained as
 \end{equation}
 
 Having the BCs and IC,
-one can write the exact solutions of the PDE (\ref{eq:errorPDE}) using separation of variables as
+one can write the exact solutions of the PDE (\ref{eq:errorPDE}) as
 
 \begin{equation}
 \epsilon(\xi,\tau) = \sum_{n=1}^{\infty} \phi_n \exp(-(n\pi)^2\tau) \cos(n\pi\xi) - A_n \cos(n\pi\xi) \int_0^{\tau} \exp\left(-(n\pi)^2(\tau - S) \right) \frac{\partial I^*}{\partial\tau} dS
@@ -485,7 +485,7 @@ Through the information about the evolution of the error and information from th
 %
 Using (\ref{eq:Vcell}) above equation is equivalent to
 %
-\begin{equation}
+\begin{equation}\label{eq:error_V_exact}
 \mathcal{E} =  V^*_{electrode}(\eta_{HF}) - V^*_{electrode}(\eta_{LF}).
 \end{equation}
 %
@@ -525,32 +525,20 @@ where constant $C_1$ and $C_2$ can be determine from the initial condition $\eps
 
 From above relation, (\ref{eq:error_V_eta}) can be written as
 %
-\begin{eqnarray}\label{eq:error_Velectrod}
+\begin{eqnarray}\label{eq:error_estimate_Velectrod}
 \mathcal{E} &=& \frac{2\gamma+1}{\gamma+1}\left[\epsilon_0(\xi=1) + \frac{\gamma-2}{6(1+\gamma)}(I^* - I^*(\tau=0))  \right]\\
 &-& \frac{\gamma}{1+\gamma}\left[\epsilon_0(\xi=0) + \frac{1-2\gamma}{6(1+\gamma)}(I^* - I^*(\tau=0)) \right]. \nonumber
 \end{eqnarray}
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
 %========================================================================
-\section{Numerical Example: Constant Current Discharge}
+\section{Numerical Example: Cyclic Current }
 %========================================================================
 
-In order to build intuition regarding the evolution of overpotential and cell voltage, we consider two simple numerical example with imposing constant and cyclic current, when the supercapcitor is initially fully discharged ($\phi_1(x;t=0) = \phi_2(x;t=0)=0$).
+The goal here is to compute $\mathcal{E}$ without solving HF model (\ref{eq:HF}) as well as solving PDE of $\epsilon$ (\ref{eq:errorPDE}). We consider a numerical example with imposing cyclic current, when the supercapcitor is initially fully discharged ($\phi_1(x;t=0) = \phi_2(x;t=0)=0$).
 %
-The values of the parameters considered in this example are presented in Table \ref{table:example}. 
+The values of the parameters considered in this example are presented in Table \ref{table:example}. The applied current is shown in Figure (\ref{fig:I_cycl}a). 
 %
 %
 \begin{table}[h]
@@ -571,170 +559,309 @@ $S$         & 25e-6  $m$\\ \hline
 \end{tabular}
 \end{table}
 
+%%
+\vspace{-0.2in}
+\begin{figure}[h]
+    \centering
+    \includegraphics[trim = 0in 0in 0in 0in, clip, width=0.45\textwidth]{figures/cyclic_new/I_t.png}
+    ~
+    \includegraphics[trim = 0in 0in 0in 0in, clip, width=0.45\textwidth]{figures/cyclic_new/etaavg_t.png} 
+\vspace{-0.2in}         
+    \caption{Cyclic current imposed and $\eta_{avg}$.}
+    \label{fig:I_cycl}    
+\end{figure}
+%%
+
+
 %========================================================================
-\subsection{Evolution of overpotential}
+\subsection{Evolution of overpotential and cell voltage}
 
 %================
 \textit{Solution of LF model:}
-Figures (\ref{fig:etaLF}) and (\ref{fig:etaLF_cycl}) show the variation of solution of LF model (\ref{eq:LF}) in the normalized time and space. $\eta_{LF}^{avg}$ in this equation is the solution of (\ref{eq:LF_avg}) such as
+Figures (\ref{fig:etaLF}) show the variation of solution of LF model (\ref{eq:LF}) in the normalized time and space. Figure (\ref{fig:I_cycl}b) shows $\eta_{LF}^{avg}$, solution of (\ref{eq:LF_avg}) such as
 %
 \begin{equation}\label{eq:Iprim}
 {\eta_{LF}^{avg}}(\tau) = \int_0^{\tau} I^*(\tau') d\tau' 
- = I^* \tau
 \end{equation}
 %%
 %%
 \begin{figure}[h]
     \centering
-    \includegraphics[trim = 0in 0in 0in 0in, clip, width=0.7\textwidth]{figures/etaLF2d.png}
-    \\
-    \includegraphics[trim = 0in 0in 0in 0in, clip, width=0.7\textwidth]{figures/etaLF3d.png}      
-    \caption{Solution of LF model for constant current.}
+    \includegraphics[trim = 0in 0in 0in 0in, clip, width=0.45\textwidth]{figures/cyclic_new/etaLF3d.png}
+    ~
+    \includegraphics[trim = 0in 0in 0in 0in, clip, width=0.45\textwidth]{figures/cyclic_new/etaLF_t.png} 
+    \vspace{-0.2in}     
+    \caption{Solution of LF model.}
     \label{fig:etaLF}
 \end{figure}
 %%
 %
 %================
 \textit{Solution of HF model:}
-Solution of the HF model is shown in Figures (\ref{fig:etaHF}) and (\ref{fig:etaHF_cycl}). The following PDE+BCs is solved using finite difference methods:
+Solution of the HF model is shown in Figures (\ref{fig:etaHF}). The following PDE+BCs is solved using finite difference methods:
 
 \begin{equation*}
-\frac{\partial\eta}{\partial\tau} = \frac{\partial^2\eta}{\partial\xi^2}
+\frac{\partial\eta_{HF}}{\partial\tau} = \frac{\partial^2\eta_{HF}}{\partial\xi^2}; \quad
+{\rm BCs:}  \frac{\partial\eta_{HF}}{\partial\tau}|_{\xi=0} = -I^* \frac{\gamma}{1+\gamma}; \quad 
+{\rm IC:}  \eta_{HF}(\xi,\tau=0)=0
 \end{equation*}
-%
-\begin{eqnarray}
-{\rm BCs:} & \frac{\partial\eta}{\partial\tau}|_{\xi=0} = -I^* \frac{\gamma}{1+\gamma} \;\; ; \;\;
-\frac{\partial\eta}{\partial\tau}|_{\xi=1} = I^* \frac{1}{1+\gamma}\\
-{\rm IC:} & \eta(\xi,\tau=0)=0
-\end{eqnarray}
 %
 %%
 \begin{figure}[h]
     \centering
-    \includegraphics[trim = 0in 0in 0in 0in, clip, width=0.7\textwidth]{figures/etaHF2d.png}
-    \\
-    \includegraphics[trim = 0in 0in 0in 0in, clip, width=0.7\textwidth]{figures/etaHF3d.png}      
-    \caption{Solution of HF model for constant current.}
+    \includegraphics[trim = 0in 0in 0in 0in, clip, width=0.45\textwidth]{figures/cyclic_new/etaHF3d.png}
+    ~
+    \includegraphics[trim = 0in 0in 0in 0in, clip, width=0.45\textwidth]{figures/cyclic_new/etaHF_t.png}  
+    \vspace{-0.2in}    
+    \caption{Solution of HF model.}
     \label{fig:etaHF}
 \end{figure}
 %%
+This solution is not required for computing error in QoI, $\mathcal{E}$ and will be used to validate the approach.
 
-
-%============
-\textit{Evolution of error:}
-The local residual $\rho(\xi,\tau)$ can be computed from (\ref{eq:residual}). However, $\frac{\partial I}{\partial \tau} = 0 $ in both examples
-resulting in zero local residual.
-
-
-Having the solution of HF model one can obtain the exact error $\epsilon_{\rm exact} = \eta_{HF} - \eta_{LF}$. This can be compared with
-the evolution of error that is obtained from solving the following PDE (Figures \ref{fig:error_2d} and \ref{fig:error_3d}).
-
-\begin{equation*}
-\frac{\partial\epsilon}{\partial\tau} = \frac{\partial^2\epsilon}{\partial\xi^2} -\rho(\xi,\eta)
-\end{equation*}
 %
-\begin{eqnarray}
-{\rm BCs:} & \frac{\partial\epsilon}{\partial\xi}|_{\xi=0} = \frac{\partial\epsilon}{\partial\xi}|_{\xi=1} = 0\\
-{\rm IC:} & \epsilon(\xi,\tau=0) = \eta_{HF}(\xi,\tau=0) - \eta_{LF}(\xi,\tau=0)
-\end{eqnarray}
-%
-
-
-%%
-\begin{figure}[h]
-    \centering
-    \includegraphics[trim = 0in 0in 0in 0in, clip, width=0.7\textwidth]{figures/error2d_exact.png}
-    \\
-    \includegraphics[trim = 0in 0in 0in 0in, clip, width=0.7\textwidth]{figures/error2d.png}      
-    \caption{Solution of error $\epsilon(\xi,\tau)$ at different normalized time and space : (top) exact error using HF model, (bottom) error using (\ref{eq:error}).}
-    \label{fig:error_2d}
-\end{figure}
-%%
-%%
-\begin{figure}[h]
-    \centering
-    \includegraphics[trim = 0in 0in 0in 0in, clip, width=0.7\textwidth]{figures/error3d_exact.png}
-    \\
-    \includegraphics[trim = 0in 0in 0in 0in, clip, width=0.7\textwidth]{figures/error3d.png}      
-    \caption{Solution of error $\epsilon(\xi,\tau)$ at different normalized time and space : (top) exact error using (\ref{eq:error}) and solution of HF model, (bottom) error using (\ref{eq:errorPDE}).}
-    \label{fig:error_3d}
-\end{figure}
-%%
-
+%================
+\noindent\textit{Time evolution of cell voltage:}
+Having the solutions of overpotential furnished by HF and LF model, the time evolution of the normalized voltage can be computed using (\ref{eq:Vcell}). The results are shown in Figures (\ref{fig:Vcell}).
 
 
 %========================================================================
-\subsection{Time evolution of cell voltage}
+\subsection{Estimated Error in cell voltage}
 
-Having the solutions of overpotential furnished by HF and LF model, the time evolution of the normalized voltage can be computed using (\ref{eq:Vcell}). The results are shown in Figures (\ref{fig:Vcell}) and (\ref{fig:Vcell_cycl}).
+Both (\ref{eq:error_V_exact}) and (\ref{eq:error_V_eta}) can be computed having solution of HF model. I computed both and they match.
+\blue{
+However, if the derivations (\ref{eq:error_V_eta})-(\ref{eq:error_estimate_Velectrod}) are correct, then we need to get similar results. Unfortunately, as shown in Figure (\ref{fig:Vcell}), they don't match. 
+}
+
+In computing (\ref{eq:error_estimate_Velectrod}), I assumed
+%%
+\begin{equation}
+\epsilon_0(\xi) = \epsilon(\xi,\tau=0) = \eta_{HF}(\xi,\tau=0) - \eta_{LF}(\xi,\tau=0) = -\eta_{LF}(\xi,\tau=0),
+\end{equation} 
+%
+since we assumed the supercapacitor is initially fully discharged, $\eta_{HF}(\xi,\tau=0) = 0$. Generally, we can assume non-zero initial condition and compute $\mathcal{E}$ from similar approach. Such initial condition only appear in HF model and LF fail to address it.  
+Also, in computing (\ref{eq:error_estimate_Velectrod}), I subtracted value of $I^*(\tau=0)$ from all components of $I^*(\tau)$ array.
 
 %%
-\begin{figure}[h]
+\begin{figure}[t]
     \centering
-    \includegraphics[trim = 0in 0in 0in 0in, clip, width=1.1\textwidth]{figures/Vcell.png}      
-    \caption{Change in voltage across the porous electrode with dimensionless time for constant current.}
+    \includegraphics[trim = 0in 0in 0in 0in, clip, width=0.75\textwidth]{figures/cyclic_new/Vcell_t.png}      
+    ~
+    \includegraphics[trim = 0in 0in 0in 0in, clip, width=0.75\textwidth]{figures/cyclic_new/Error_V.png}      
+    \caption{(a) Change in voltage across the porous electrode with dimensionless time.
+    (b) Error in $Vcell$ using HF and LF models: exact is the plot of (\ref{eq:error_V_eta}) and estimated is the plot of (\ref{eq:error_estimate_Velectrod}).}
     \label{fig:Vcell}
 \end{figure}
 %%
 
 
-%========================================================================
-%		Results of Cyclic I
-%========================================================================
 
 
-%%
-\begin{figure}[h]
-    \centering
-    \includegraphics[trim = 0in 0in 0in 0in, clip, width=1.1\textwidth]{figures/I_cycl.png}      
-    \caption{Cyclic current imposed.}
-    \label{fig:I_cycl}
-\end{figure}
-%%
 
 
-%%
-\begin{figure}[h]
-    \centering
-    \includegraphics[trim = 0in 0in 0in 0in, clip, width=0.7\textwidth]{figures/etaLF2d_cycl.png}
-    \\
-    \includegraphics[trim = 0in 0in 0in 0in, clip, width=0.7\textwidth]{figures/etaLF3d_cycl.png}      
-    \caption{Solution of LF model for cyclic current.}
-    \label{fig:etaLF_cycl}
-\end{figure}
-%%
-
-%%
-\begin{figure}[h]
-    \centering
-    \includegraphics[trim = 0in 0in 0in 0in, clip, width=0.7\textwidth]{figures/etaHF2d_cycl.png}
-    \\
-    \includegraphics[trim = 0in 0in 0in 0in, clip, width=0.7\textwidth]{figures/etaHF3d_cycl.png}      
-    \caption{Solution of HF model for cyclic current.}
-    \label{fig:etaHF_cycl}
-\end{figure}
-%%
-
-%%
-\begin{figure}[h]
-    \centering
-    \includegraphics[trim = 0in 0in 0in 0in, clip, width=0.7\textwidth]{figures/error2d_exact_cycl.png}
-    \\
-    \includegraphics[trim = 0in 0in 0in 0in, clip, width=0.7\textwidth]{figures/error3d_exact_cycl.png}       
-    \caption{Solution of error $\epsilon(\xi,\tau)$ at different normalized time and space.}
-    \label{fig:error_2d_cycl}
-\end{figure}
-%%
 
 
+
+
+
+
+
+
+
+
+
+%
+%%========================================================================
+%\section{Numerical Example: Constant Current Discharge}
+%%========================================================================
+%
+%In order to build intuition regarding the evolution of overpotential and cell voltage, we consider two simple numerical example with imposing constant and cyclic current, when the supercapcitor is initially fully discharged ($\phi_1(x;t=0) = \phi_2(x;t=0)=0$).
 %%
-\begin{figure}[h]
-    \centering
-    \includegraphics[trim = 0in 0in 0in 0in, clip, width=1.1\textwidth]{figures/Vcell_cycl.png}      
-    \caption{Change in voltage across the porous electrode with dimensionless time for cyclic current.}
-    \label{fig:Vcell_cycl}
-\end{figure}
+%The values of the parameters considered in this example are presented in Table \ref{table:example}. 
 %%
+%%
+%\begin{table}[h]
+%\centering
+%\caption{Values of parameters for the illustrative example.}
+%\label{table:example}
+%\begin{tabular}{|l|l|}
+%\hline
+%$\kappa$ & 0.0195174 $sec/m$\\ \hline
+%$\sigma$ & 52.1  $sec/m$\\ \hline
+%$L$         & 50e-6  $m$\\ \hline
+%$C$         & 0.03134  $ F/m^2$\\ \hline
+%$a$         & 4.19956e7/C   $m$\\ \hline
+%$V_0$      & 1.25   $volt$\\ \hline
+%$I_{\rm unscaled}$ & 200  $Amp/m^2$\\ \hline
+%$\kappa_s$ & 0.0311627 $sec/m$\\ \hline
+%$S$         & 25e-6  $m$\\ \hline
+%\end{tabular}
+%\end{table}
+%
+%%========================================================================
+%\subsection{Evolution of overpotential}
+%
+%%================
+%\textit{Solution of LF model:}
+%Figures (\ref{fig:etaLF}) and (\ref{fig:etaLF_cycl}) show the variation of solution of LF model (\ref{eq:LF}) in the normalized time and space. $\eta_{LF}^{avg}$ in this equation is the solution of (\ref{eq:LF_avg}) such as
+%%
+%\begin{equation}\label{eq:Iprim}
+%{\eta_{LF}^{avg}}(\tau) = \int_0^{\tau} I^*(\tau') d\tau' 
+% = I^* \tau
+%\end{equation}
+%%%
+%%%
+%\begin{figure}[h]
+%    \centering
+%    \includegraphics[trim = 0in 0in 0in 0in, clip, width=0.7\textwidth]{figures/etaLF2d.png}
+%    \\
+%    \includegraphics[trim = 0in 0in 0in 0in, clip, width=0.7\textwidth]{figures/etaLF3d.png}      
+%    \caption{Solution of LF model for constant current.}
+%    \label{fig:etaLF}
+%\end{figure}
+%%%
+%%
+%%================
+%\textit{Solution of HF model:}
+%Solution of the HF model is shown in Figures (\ref{fig:etaHF}) and (\ref{fig:etaHF_cycl}). The following PDE+BCs is solved using finite difference methods:
+%
+%\begin{equation*}
+%\frac{\partial\eta}{\partial\tau} = \frac{\partial^2\eta}{\partial\xi^2}
+%\end{equation*}
+%%
+%\begin{eqnarray}
+%{\rm BCs:} & \frac{\partial\eta}{\partial\tau}|_{\xi=0} = -I^* \frac{\gamma}{1+\gamma} \;\; ; \;\;
+%\frac{\partial\eta}{\partial\tau}|_{\xi=1} = I^* \frac{1}{1+\gamma}\\
+%{\rm IC:} & \eta(\xi,\tau=0)=0
+%\end{eqnarray}
+%%
+%%%
+%\begin{figure}[h]
+%    \centering
+%    \includegraphics[trim = 0in 0in 0in 0in, clip, width=0.7\textwidth]{figures/etaHF2d.png}
+%    \\
+%    \includegraphics[trim = 0in 0in 0in 0in, clip, width=0.7\textwidth]{figures/etaHF3d.png}      
+%    \caption{Solution of HF model for constant current.}
+%    \label{fig:etaHF}
+%\end{figure}
+%%%
+%
+%
+%%============
+%\textit{Evolution of error:}
+%The local residual $\rho(\xi,\tau)$ can be computed from (\ref{eq:residual}). However, $\frac{\partial I}{\partial \tau} = 0 $ in both examples
+%resulting in zero local residual.
+%
+%
+%Having the solution of HF model one can obtain the exact error $\epsilon_{\rm exact} = \eta_{HF} - \eta_{LF}$. This can be compared with
+%the evolution of error that is obtained from solving the following PDE (Figures \ref{fig:error_2d} and \ref{fig:error_3d}).
+%
+%\begin{equation*}
+%\frac{\partial\epsilon}{\partial\tau} = \frac{\partial^2\epsilon}{\partial\xi^2} -\rho(\xi,\eta)
+%\end{equation*}
+%%
+%\begin{eqnarray}
+%{\rm BCs:} & \frac{\partial\epsilon}{\partial\xi}|_{\xi=0} = \frac{\partial\epsilon}{\partial\xi}|_{\xi=1} = 0\\
+%{\rm IC:} & \epsilon(\xi,\tau=0) = \eta_{HF}(\xi,\tau=0) - \eta_{LF}(\xi,\tau=0)
+%\end{eqnarray}
+%%
+%
+%
+%%%
+%\begin{figure}[h]
+%    \centering
+%    \includegraphics[trim = 0in 0in 0in 0in, clip, width=0.7\textwidth]{figures/error2d_exact.png}
+%    \\
+%    \includegraphics[trim = 0in 0in 0in 0in, clip, width=0.7\textwidth]{figures/error2d.png}      
+%    \caption{Solution of error $\epsilon(\xi,\tau)$ at different normalized time and space : (top) exact error using HF model, (bottom) error using (\ref{eq:error}).}
+%    \label{fig:error_2d}
+%\end{figure}
+%%%
+%%%
+%\begin{figure}[h]
+%    \centering
+%    \includegraphics[trim = 0in 0in 0in 0in, clip, width=0.7\textwidth]{figures/error3d_exact.png}
+%    \\
+%    \includegraphics[trim = 0in 0in 0in 0in, clip, width=0.7\textwidth]{figures/error3d.png}      
+%    \caption{Solution of error $\epsilon(\xi,\tau)$ at different normalized time and space : (top) exact error using (\ref{eq:error}) and solution of HF model, (bottom) error using (\ref{eq:errorPDE}).}
+%    \label{fig:error_3d}
+%\end{figure}
+%%%
+%
+%
+%
+%%========================================================================
+%\subsection{Time evolution of cell voltage}
+%
+%Having the solutions of overpotential furnished by HF and LF model, the time evolution of the normalized voltage can be computed using (\ref{eq:Vcell}). The results are shown in Figures (\ref{fig:Vcell}) and (\ref{fig:Vcell_cycl}).
+%
+%%%
+%\begin{figure}[h]
+%    \centering
+%    \includegraphics[trim = 0in 0in 0in 0in, clip, width=1.1\textwidth]{figures/Vcell.png}      
+%    \caption{Change in voltage across the porous electrode with dimensionless time for constant current.}
+%    \label{fig:Vcell}
+%\end{figure}
+%%%
+%
+%
+%%========================================================================
+%%		Results of Cyclic I
+%%========================================================================
+%
+%
+%%%
+%\begin{figure}[h]
+%    \centering
+%    \includegraphics[trim = 0in 0in 0in 0in, clip, width=1.1\textwidth]{figures/I_cycl.png}      
+%    \caption{Cyclic current imposed.}
+%    \label{fig:I_cycl}
+%\end{figure}
+%%%
+%
+%
+%%%
+%\begin{figure}[h]
+%    \centering
+%    \includegraphics[trim = 0in 0in 0in 0in, clip, width=0.7\textwidth]{figures/etaLF2d_cycl.png}
+%    \\
+%    \includegraphics[trim = 0in 0in 0in 0in, clip, width=0.7\textwidth]{figures/etaLF3d_cycl.png}      
+%    \caption{Solution of LF model for cyclic current.}
+%    \label{fig:etaLF_cycl}
+%\end{figure}
+%%%
+%
+%%%
+%\begin{figure}[h]
+%    \centering
+%    \includegraphics[trim = 0in 0in 0in 0in, clip, width=0.7\textwidth]{figures/etaHF2d_cycl.png}
+%    \\
+%    \includegraphics[trim = 0in 0in 0in 0in, clip, width=0.7\textwidth]{figures/etaHF3d_cycl.png}      
+%    \caption{Solution of HF model for cyclic current.}
+%    \label{fig:etaHF_cycl}
+%\end{figure}
+%%%
+%
+%%%
+%\begin{figure}[h]
+%    \centering
+%    \includegraphics[trim = 0in 0in 0in 0in, clip, width=0.7\textwidth]{figures/error2d_exact_cycl.png}
+%    \\
+%    \includegraphics[trim = 0in 0in 0in 0in, clip, width=0.7\textwidth]{figures/error3d_exact_cycl.png}       
+%    \caption{Solution of error $\epsilon(\xi,\tau)$ at different normalized time and space.}
+%    \label{fig:error_2d_cycl}
+%\end{figure}
+%%%
+%
+%
+%%%
+%\begin{figure}[h]
+%    \centering
+%    \includegraphics[trim = 0in 0in 0in 0in, clip, width=1.1\textwidth]{figures/Vcell_cycl.png}      
+%    \caption{Change in voltage across the porous electrode with dimensionless time for cyclic current.}
+%    \label{fig:Vcell_cycl}
+%\end{figure}
+%%%
 
 
 %========================================================================
