@@ -195,9 +195,9 @@ error_estimate_Velec = ((2*gamma+1)/(gamma+1))*(epsilon0_1 + ((gamma-2)/(6*(1+ga
 
 
 figure
-plot(tau,error_exact_Velec,'--b','LineWidth',3); hold on
-plot(tau,error_estimate_Velec,'r','LineWidth',3); 
-legend('exact', 'estimated')
+plot(tau,error_exact_Velec,'b','LineWidth',3); hold on
+% plot(tau,error_estimate_Velec,'r','LineWidth',3); 
+% legend('exact', 'estimated')
 xlabel('\tau'); ylabel('Error V^*_{electrod}');
 prop_plots
 

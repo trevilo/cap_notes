@@ -245,3 +245,30 @@ set(get(gca,'YLabel'),'String','V^*_{cell}','FontSize',42,'FontWeight','bold','F
 set(get(gca,'Title'),'String','Constant Current','FontSize',32,'FontWeight','bold','FontName','Times')
 set(gcf,'Position',[1 1 round(1000) round(1000)])
 
+%%========================================================
+%% Error in Velectrod
+
+error_exact_Velec = V_elecHF - V_elecLF; 
+
+% from eq. (62)
+% epsilon0 = eps_exact(1,:);
+% epsilon1 = eps_exact(end,:);
+% 
+% error_exact_Velec = ((1+2*gamma)/(1+gamma)) * epsilon1 - ...
+%     (gamma/(1+gamma))*epsilon0;
+
+% from eq. (67)
+epsilon0 = -etaLF(1,:); % \eta error at t=0 (due to intially fully discharged assumption) 
+epsilon0_0 = epsilon0(1);
+epsilon0_1 = epsilon0(end);
+
+error_estimate_Velec = ((2*gamma+1)/(gamma+1))*(epsilon0_1 + ((gamma-2)/(6*(1+gamma)))*(I-I(1))) ...
+    -(gamma/(gamma+1))*(epsilon0_0 + ((1-2*gamma)/(6*(1+gamma)))*(I-I(1)));
+
+
+figure
+plot(tau,abs(error_exact_Velec),'b','LineWidth',3); hold on
+%plot(tau,error_estimate_Velec,'r','LineWidth',3); 
+% legend('exact', 'estimated')
+xlabel('\tau'); ylabel('Error V^*_{electrod}');
+prop_plots
