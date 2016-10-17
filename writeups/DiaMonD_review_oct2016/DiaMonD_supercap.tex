@@ -253,7 +253,67 @@ $^2$ Allu, Velamur Asokan, Shelton, Philip, Pannala. \textit{Journal of Power So
 
 
 
+%===============================================================================
+% Slide 3 - v2
+%===============================================================================
+\begin{frame}
+\frametitle{Model Inadequacy}
+\vfill
 
+\begin{columns}
+\begin{column}{.55\textwidth}
+%-----------------------------
+\begin{block}{}
+\begin{itemize}
+
+\item 3D finite element models allow for optimizing system level performance including:
+\begin{itemize}
+\item reduce the transport distance between positive and negative electrodes.
+\item packing more electrode material
+\item designing materials with high specific capacitance, improved ionic conductivity, and very low tortuous electrodes
+\end{itemize} 
+to improve the power/energy density. 
+
+\item 1D models are not able to fully capture the behavior of real supercapacitors that impact cell performance/efficiency including
+\begin{itemize}
+\item Physical characteristics such as anisotropy in various transport properties (e.g., electronic conductivity)
+\item Spatial variability of material properties at mesoscale
+\item Non-planar supercapacitor 
+\end{itemize}
+
+\item The 1D model enhanced with stochastic inadequacy representation, can be utilized to provide low cost computational predictions for design and fabrication of novel configuration with higher cell performance and efficiency.
+
+\end{itemize}
+
+\end{block}
+\end{column}
+%====================
+\begin{column}{.42\textwidth}
+\begin{center}
+%\vspace{-4mm}
+\begin{figure}[h]
+    \centering
+    \includegraphics[trim = 0in 0in 0in 0in, clip, width=0.45\textwidth]{figs_report/transparent.png} 
+    \\{{\small 3D finite element mesh of supercapacitor$^1$.}}\\
+    \includegraphics[trim = 0.2in 0.1in 0in 0in, clip, width=0.55\textwidth]{figs_report/nonplanar_supercap.jpg}
+    \\
+    \includegraphics[trim = 0in 0in 0in 0in, clip, width=0.75\textwidth]{figs_report/nonplanar_conf.png}
+    \\ {{\small Spatial distribution of the current density for non-parallel plate supercapacitor configuration$^2$}.}
+\end{figure}
+\end{center}
+\end{column}
+\end{columns}
+
+\vspace{0.1in}
+\noindent\rule{5cm}{0.4pt}\\
+\begin{footnotesize}
+$^1$ Lebrun-Grandie and Turcksin. \textit{Cap: C++ library for modeling energy storage devices}. ORNL -- CEES.
+
+$^2$ Allu, Velamur Asokan, Shelton, Philip, Pannala. \textit{Journal of Power Sources} 256 (2014): 369-382.
+\end{footnotesize}
+
+\vfill
+\end{frame}
 
 
 \end{document}
