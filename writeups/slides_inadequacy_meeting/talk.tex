@@ -1,0 +1,246 @@
+\documentclass[10pt,xcolor=dvipsnames,compress]{beamer}
+
+\usepackage{danny_theme}
+\usepackage{danny_style}
+\usepackage{hyperref}
+\usepackage[algoruled,longend]{algorithm2e}
+\usepackage{array}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\newcolumntype{C}{>{\centering\arraybackslash} m{1.3in} }
+\newcolumntype{M}{>{\centering\arraybackslash} m{1.in} }
+\everymath{\displaystyle}
+\long\def\/*#1*/{}
+
+\beamertemplatenavigationsymbolsempty
+
+
+%===============================================================================
+% 					  Presentation Title and Author  
+%===============================================================================
+\title[Supercapacitor]{
+Inadequecy Representation of Supercapacitor Batteries Models}
+%\subtitle{Nonlinear Deformation in Metallic Materials}
+
+\author[Danial Faghihi]{Danial Faghihi}
+
+\institute[ICES]{Institute for Computational Engineering and Sciences (ICES)\\
+$\quad~$The University of Texas at Austin
+}
+
+\date[\today]{\today}
+%===============================================================================
+%===============================================================================
+
+
+
+\begin{document}
+
+%===============================================================================
+% SLIDE 00
+%===============================================================================
+\begin{frame}
+\titlepage
+\end{frame}
+
+%===============================================================================
+% SLIDE 00
+%===============================================================================
+\begin{frame}
+\frametitle{Outline}
+\vfill
+
+\vspace{0.7in}
+\tableofcontents
+\vspace{0.7in}
+
+\vfill
+\end{frame}
+
+
+
+
+%%%%%%%--------------------------------------------------------------------------------------------------------------------------
+\section{Motivation}
+%%%%%%%--------------------------------------------------------------------------------------------------------------------------
+%===============================================================================
+% SLIDE 00
+%===============================================================================
+\begin{frame}
+\frametitle{Outline}
+\vfill
+
+\vspace{0.7in}
+\tableofcontents[currentsection,currentsubsection] 
+\vspace{0.7in}
+
+\vfill
+\end{frame}
+
+
+%===============================================================================
+% SLIDE 01
+%===============================================================================
+\begin{frame}
+\frametitle{What are supercapacitors?}
+\vfill
+
+
+Supercapacitors are intermediate power/energy storage/supply devices that bridge the gap between \textit{electrolytic capacitors} and  \textit{rechargeable batteries}. They can provide
+\begin{itemize}
+\item higher energy density (capacitance) than capacitors
+\item higher power density (faster charge delivery) than batteries
+\item many more charge and discharge cycles than batteries
+\end{itemize}
+
+\begin{center}
+\vspace{-0.06in}
+\includegraphics[trim = 0mm 0mm 0mm 0mm, clip, width=.48\textwidth]{figs/cap_battery}
+\vspace{-0.1in}
+\end{center}
+
+\begin{small}
+Supercapacitors are suitable in applications where a large amount of power is needed for a relatively
+short time, where a very high number of charge/discharge cycles or a longer lifetime is required.
+e.g. Low supply current for memory backup in SRAM, power for cars, etc.
+\end{small}
+
+\vfill
+\end{frame}
+
+
+%===============================================================================
+% SLIDE 02
+%===============================================================================
+\begin{frame}
+\frametitle{What are supercapacitors?}
+\vfill
+
+
+\begin{columns}[T] % contents are top vertically aligned
+     \begin{column}[T]{6cm} % each column can also be its own environment
+	\includegraphics[trim = 0mm 0mm 0mm 0mm, clip, width=.7\textwidth]{figs/stacked.png}
+	\\Supercapacitor with stacked electrodes
+     \end{column}
+     \begin{column}[T]{4cm} % alternative top-align that's better for graphics
+	\includegraphics[trim = 0mm 0mm 0mm 0mm, clip, width=.7\textwidth]{figs/wound.png}
+	\\ Wound supercapacitor
+     \end{column}
+\end{columns}
+
+\begin{block}{}
+\begin{columns}[T] % contents are top vertically aligned
+     \begin{column}[T]{3cm} % each column can also be its own environment
+\includegraphics[trim = 2.4in 0.42in 0.7in 0.9in, clip, width=1\textwidth]{figs/supercap_schematic.pdf}  
+    \end{column}
+     \begin{column}[T]{7cm} % alternative top-align that's better for graphics
+Unit cell:
+\begin{itemize}
+\begin{small}
+\item Anode current collector
+\item Porous anode electrode: solid matrix filled with liquid electrolyte
+\item Separator: electronic insulator and ion permeable
+\item Porous cathode electrode: solid matrix and liquid electrolyte
+\item Cathode current collector.
+\end{small}
+\end{itemize}
+     \end{column}
+\end{columns}
+\end{block}
+
+\vfill
+\end{frame}
+
+
+%===============================================================================
+% SLIDE 02
+%===============================================================================
+\begin{frame}
+\frametitle{Storage principles}
+\vfill
+
+Capacitance value of an electrochemical capacitor is determined by two storage principles
+\begin{itemize}
+\item double-layer capacitance: electrostatic storage of the electrical energy
+by separation of charge in a double layer at the interface between electrode/electrolyte .
+The amount of electric charge stored is linearly proportional to the applied voltage and depends primarily on the electrode surface.
+\item pseudo capacitance: electrochemical storage achieved by faradaic redox reactions with charge-transfer.
+\end{itemize}
+
+\begin{block}{}
+explanations!!!
+\end{block}
+
+
+\vfill
+\end{frame}
+
+
+%%%%%%%--------------------------------------------------------------------------------------------------------------------------
+\section{Model Description}
+%%%%%%%--------------------------------------------------------------------------------------------------------------------------
+%===============================================================================
+% SLIDE 00
+%===============================================================================
+\begin{frame}
+\frametitle{Outline}
+\vfill
+
+\vspace{0.7in}
+\tableofcontents[currentsection,currentsubsection] 
+\vspace{0.7in}
+
+\vfill
+\end{frame}
+
+
+%===============================================================================
+% SLIDE 03
+%===============================================================================
+\begin{frame}
+\frametitle{Governing Equations}
+\vfill
+
+\begin{block}{}
+Current density following Ohm's law:
+\begin{itemize}
+\item Electrode (matrix phase) : due to electrons migration
+$
+\mathbf{i}_1 = -\sigma\nabla\phi_1
+$
+\item Electrolyte (solution phase) : due to ion migration
+$
+\mathbf{i}_2 = -\kappa\nabla\phi_2
+$
+\end{itemize}
+where $\phi_1$ and $\phi_2$ are potentials, and 
+$\sigma$ is solid matrix electronic conductivity and $\kappa$ is liquid ionic conductivity.
+\end{block}
+
+\begin{block}{conservation of charge}
+\vspace{-.2in}
+\begin{eqnarray*}
+{\rm total \; current \; density:} \; I & = & \mathbf{i}_1 + \mathbf{i}_2\\
+-\nabla \cdot \mathbf{i}_1 & = & \nabla\cdot \mathbf{i}_2 = a {i}_n
+\vspace{-.3in}
+\end{eqnarray*}
+$a$: interfacial area per unit volume \\
+${i}_n$: current transferred from the matrix to the electrolyte
+\begin{equation*}
+{i}_n = \underbrace{C \frac{\partial}{\partial t} \eta}_{\rm double-layer}+
+\underbrace{{i}_0 ( \exp (\frac{\alpha_aF}{RT}\eta) - \exp (-\frac{\alpha_aF}{RT}\eta)}_{\rm faradaic})
+\end{equation*}
+overpotential: 
+$
+\eta =  \phi_1 - \phi_2.
+$
+\end{block}
+
+\vfill
+\end{frame}
+
+
+
+
+
+\end{document}
