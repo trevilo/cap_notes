@@ -3,7 +3,7 @@
 \usepackage{danny_theme}
 \usepackage{danny_style}
 \usepackage{hyperref}
-\usepackage[algoruled,longend]{algorithm2e}
+%\usepackage[algoruled,longend]{algorithm2e}
 \usepackage{array}
 \usepackage{graphicx}
 \usepackage{amsmath}
@@ -235,6 +235,155 @@ $
 \eta =  \phi_1 - \phi_2.
 $
 \end{block}
+
+\vfill
+\end{frame}
+
+
+%===============================================================================
+% Slide 04
+%===============================================================================
+\begin{frame}
+\frametitle{High Fidelity Model}
+\vfill
+
+\begin{columns}
+\begin{column}{.47\textwidth}
+\begin{itemize}
+\begin{small}
+\item $\eta(\xi,\tau)$ = overpotential in electrode\\
+\item $\gamma = \frac{\kappa}{\sigma}$ : conductivity ratio \\
+\item $\xi, \tau$ : dimensionless distance/time \\
+\item $I(\tau)$ : dimensionless current
+\end{small}
+\end{itemize}
+\end{column}
+%-----------------------------
+\begin{column}{.47\textwidth} 
+	\includegraphics[trim = 0in 1.4in 0in 1.4in, clip, width=1\textwidth]{figs/schematic.pdf}
+\end{column}
+\end{columns}
+%%====================
+\begin{columns}
+\begin{column}{.47\textwidth}
+%-----------------------------
+\begin{problock}{High Fidelity (1D) model}
+\begin{equation*}\label{eq:HF}
+\frac{\partial\eta_{HF}}{\partial\tau} = \frac{\partial^2\eta_{HF}}{\partial\xi^2}
+\end{equation*}
+\begin{equation*}
+\left\{\begin{matrix}
+\frac{\partial\eta_{HF}}{\partial\xi}|_{\xi=0} & = & -\frac{\gamma}{1+\gamma}I(\tau)\\
+\frac{\partial\eta_{HF}}{\partial\xi}|_{\xi=1} & = & \frac{1}{1+\gamma}I(\tau) \nonumber\\
+\eta_{HF}|_{\tau=0} 					       & =  & \eta_0(\xi)
+\end{matrix}\right.
+\end{equation*}
+\end{problock}
+\end{column}
+%-----------------------------
+\begin{column}{.47\textwidth}
+\vspace{-0.1in}
+\begin{alertblock}{Modeling Assumptions (Sins)}
+\begin{enumerate}[i.]
+
+\begin{footnotesize}
+\item No Faradaic processes:
+current transferred from matrix to the solution phase goes towards only charging the double-layer at the electrode/electrolyte interface.
+
+\item $\phi_1$ is uniformly distributed over the current collector domain (collector is sufficiently thin)
+%
+%The electrical resistivity of the current collector is low (or it is sufficiently thin) that one can assume uniform distribution of $\phi_1$ over the collector domain: \textit{homogeneous in the $x$-direction}, 
+
+\item There is no electron/ion fluxes cross the top and bottom boundaries
+%. Also due to high conductivity of collectors, the voltage over the whole interface on the collector side is negligible (similar to case that tab on the left collector is grounded): \textit{2D domain could be reduced to a quasi-1D domain},
+
+\item The material properties are constant within each layer
+\end{footnotesize}
+
+\end{enumerate}
+\end{alertblock}
+\end{column}
+\end{columns}
+
+
+\vfill
+\end{frame}
+
+
+%===============================================================================
+% Slide 05
+%===============================================================================
+\begin{frame}
+\frametitle{Low Fidelity Model}
+\vfill
+
+
+\begin{alertblock}{Modeling Assumptions (Sins)}
+\begin{enumerate}[i.]
+
+\item Spatially
+averaging the governing equation over the entire domain length (PDE of the HF model reduces to an ODE) 
+%
+\begin{equation}\label{eq:LF_avg}
+\eta^{avg} = \int_0^1 \eta d\xi \qquad \Rightarrow \qquad
+\frac{\partial{\eta}^{avg}}{\partial\tau} = I^*
+\end{equation}
+
+\item Assuming a quadratically varying profile for overpotential inside the electrodes
+\begin{equation*}\label{eq:quadratic}
+\eta_{LF} (\xi,\tau)= a(\tau)\xi^2 + b(\tau)\xi + c(\tau)
+\end{equation*}
+where $a$, $b$, and $c$ can be obtained from PDE+BCs of HF model.
+
+\end{enumerate}
+\end{alertblock}
+
+%-----------------------------
+\begin{block}{Low Fidelity (0D) model}
+\begin{equation*}\label{eq:LF}
+\eta_{LF}(\xi,\tau) = 
+\frac{1}{2}I^*(\tau)\xi^2 - I^*(\tau) \frac{\gamma}{1+\gamma}\xi + {\eta}^{avg}(\tau) - \frac{I^*(\tau)}{6} + \frac{I^*(\tau)}{2}\frac{\gamma}{1+\gamma}
+\end{equation*}
+${\eta}^{avg}$ is the solution of (\ref{eq:LF_avg}) given appropriate initial condition.
+\end{block}
+
+
+
+
+\vfill
+\end{frame}
+
+
+
+%===============================================================================
+% Slide 06
+%===============================================================================
+\begin{frame}
+\frametitle{QoI : cell voltage }
+\vfill
+
+
+\begin{alertblock}{Quantity of Interest}
+ Potential drop across the system
+
+ $V^{\rm cell}(\tau) = \phi_{\rm col.}^L - \phi_{\rm col.}^R
+= \frac{1+2\gamma}{1+\gamma}\eta|_{\xi=1} - \frac{\gamma}{1+\gamma}\eta|_{\xi=0} - \frac{\gamma}{(1+\gamma)^2}I
+ $
+\end{alertblock} 
+
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[trim = 1.2in 2.4in 1.6in 2.8in, clip, width=0.45\textwidth]{figs/I.png}
+    \\
+    \includegraphics[trim = 1.2in 2.4in 1.6in 2.8in, clip, width=0.45\textwidth]{figs/etaLF_HF.png}   
+    \\
+    \includegraphics[trim = 1.2in 2.4in 1.6in 2.8in, clip, width=0.45\textwidth]{figs/Vcell_HF_LF.png} 
+\end{figure}
+
+
+
+
 
 \vfill
 \end{frame}
