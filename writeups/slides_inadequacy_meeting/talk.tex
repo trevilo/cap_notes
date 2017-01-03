@@ -159,17 +159,34 @@ Unit cell:
 \frametitle{Storage principles}
 \vfill
 
+\begin{columns}[T] % contents are top vertically aligned
+     \begin{column}[T]{5.5cm} % each column can also be its own environment
+\begin{block}{}
 Capacitance value of an electrochemical capacitor is determined by two storage principles
 \begin{itemize}
-\item double-layer capacitance: electrostatic storage of the electrical energy
+\item \textit{double-layer capacitance:} electrostatic storage of the electrical energy
 by separation of charge in a double layer at the interface between electrode/electrolyte .
-The amount of electric charge stored is linearly proportional to the applied voltage and depends primarily on the electrode surface.
-\item pseudo capacitance: electrochemical storage achieved by faradaic redox reactions with charge-transfer.
-\end{itemize}
+%The amount of electric charge stored is linearly proportional to the applied voltage and depends primarily on the electrode surface.
+\item \textit{pseudocapacitance:} electrochemical storage achieved by faradaic redox reactions with electron charge-transfer between electrolyte and electrode. 
+% Pseudocapacitance is the electrochemical storage of electricity in an electrochemical capacitor (Pseudocapacitor). This faradaic charge transfer originates by a very fast sequence of reversible faradaic redox, electrosorption or intercalation processes on the surface of suitable electrodes.[1][2][3] Pseudocapacitance is accompanied by an electron charge-transfer between electrolyte and electrode coming from a de-solvated and adsorbed ion. One electron per charge unit is involved. The adsorbed ion has no chemical reaction with the atoms of the electrode (no chemical bonds arise[4]) since only a charge-transfer takes place.
 
-\begin{block}{}
-explanations!!!
+
+\end{itemize}
 \end{block}
+     \end{column}
+     \begin{column}[T]{5cm} % alternative top-align that's better for graphics
+	\includegraphics[trim = 0mm 0mm 0mm 0mm, clip, width=0.8\textwidth]{figs/double-layer.png}\\
+\begin{footnotesize}
+	 1. Inner Helmholtz plane, 
+	 2. Outer Helmholtz plane, 
+	 3. Diffuse layer, 
+	 4. Solvated ions (cations) 
+	 \textbf{5. Specifically adsorbed ions (redox ion, which contributes to the pseudocapacitance),} 
+	 6. Molecules of the electrolyte solvent
+\end{footnotesize}
+     \end{column}
+\end{columns}
+
 
 
 \vfill
@@ -208,11 +225,11 @@ explanations!!!
 \begin{itemize}
 \item Matrix phase :
 $
-i_1 = -\sigma\nabla\phi_1
+\mathbf{i}_1 = -\sigma\nabla\phi_1
 $
 \item Solution phase:
 $
-i_2 = -\kappa\nabla\phi_2
+\mathbf{i}_2 = -\kappa\nabla\phi_2
 $
 \end{itemize}
 $\phi_1$, $\phi_2$: potentials,\\
@@ -223,7 +240,7 @@ $\sigma$, $\kappa$: electronic/ionic conductivity.
 \textbf{Conservation of charge:}
 \vspace{-0.1in}
 \begin{equation*}
--\nabla \cdot i_1 =  \nabla\cdot i_2 = a {i}_n
+-\nabla \cdot \mathbf{i}_1 =  \nabla\cdot \mathbf{i}_2 = a {i}_n
 \vspace{-0.1in}
 \end{equation*}
 $a$: interfacial area per unit volume \\
@@ -244,19 +261,19 @@ $
 \begin{column}{.30\textwidth} 
 \begin{block}{collector}
 \begin{equation*}
-i_1 = -\sigma\nabla\phi_1
+\mathbf{i}_1 = -\sigma\nabla\phi_1
 \end{equation*}
 \begin{equation*}
--\nabla \cdot i_1 = 0
+-\nabla \cdot \mathbf{i}_1 = 0
 \end{equation*}
 \end{block}
 %%
 \begin{block}{seperator}
 \begin{equation*}
-i_2 = -\kappa\nabla\phi_2
+\mathbf{i}_2 = -\kappa\nabla\phi_2
 \end{equation*}
 \begin{equation*}
--\nabla \cdot i_2 = 0
+-\nabla \cdot \mathbf{i}_2 = 0
 \end{equation*}
 \end{block}
 \end{column}
@@ -351,10 +368,10 @@ current transferred from matrix to the solution phase goes towards only charging
 \item Spatially
 averaging the governing equation over the entire domain length (PDE of the HF model reduces to an ODE) 
 %
-\begin{equation}\label{eq:LF_avg}
+\begin{equation*}\label{eq:LF_avg}
 \eta^{avg} = \int_0^1 \eta d\xi \qquad \Rightarrow \qquad
-\frac{\partial{\eta}^{avg}}{\partial\tau} = I^*
-\end{equation}
+\frac{\partial{\eta}^{avg}}{\partial\tau} = I(\tau)
+\end{equation*}
 
 \item Assuming a quadratically varying profile for overpotential inside the electrodes
 \begin{equation*}\label{eq:quadratic}
@@ -470,7 +487,7 @@ Solving PDE using Laplace transform
 \[
 \textstyle{
 \mathcal{K}(\tau-\tau') = 
- \sum_{n=1}^\infty  e^{-n^2\pi^2(\tau-\tau')}d\tau'
+ \sum_{n=1}^\infty  e^{-n^2\pi^2(\tau-\tau')}
 }
 \]
 \end{small}
@@ -526,7 +543,7 @@ where $W(\tau)$ is a Wiener process.% and $(\alpha, \beta, c, \lambda_{mean})$ a
 \begin{block}{}
 \begin{itemize}
 \item The ODE accounts for some of hidden features of HF i.e. $\lambda\epsilon$ takes care of the Kernel $\mathcal{K}$.
-\item It needs to be trained by HF data.
+\item It needs to be trained by HF data i.e. calibrating parameters of inadequacy representation $(\alpha, \beta, c, \lambda_{mean})$. 
 \end{itemize}
 \end{block}
 
