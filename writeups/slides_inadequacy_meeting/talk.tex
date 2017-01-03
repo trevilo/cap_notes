@@ -201,40 +201,67 @@ explanations!!!
 \frametitle{Governing Equations}
 \vfill
 
-\begin{block}{}
-Current density following Ohm's law:
+\begin{columns}
+\begin{column}{.65\textwidth}
+\begin{block}{electrode}
+\textbf{Current density} following Ohm's law:
 \begin{itemize}
-\item Electrode (matrix phase) : due to electrons migration
+\item Matrix phase :
 $
-\mathbf{i}_1 = -\sigma\nabla\phi_1
+i_1 = -\sigma\nabla\phi_1
 $
-\item Electrolyte (solution phase) : due to ion migration
+\item Solution phase:
 $
-\mathbf{i}_2 = -\kappa\nabla\phi_2
+i_2 = -\kappa\nabla\phi_2
 $
 \end{itemize}
-where $\phi_1$ and $\phi_2$ are potentials, and 
-$\sigma$ is solid matrix electronic conductivity and $\kappa$ is liquid ionic conductivity.
-\end{block}
+$\phi_1$, $\phi_2$: potentials,\\
+$\sigma$, $\kappa$: electronic/ionic conductivity.
+%
 
-\begin{block}{conservation of charge}
-\vspace{-.2in}
-\begin{eqnarray*}
-{\rm total \; current \; density:} \; I & = & \mathbf{i}_1 + \mathbf{i}_2\\
--\nabla \cdot \mathbf{i}_1 & = & \nabla\cdot \mathbf{i}_2 = a {i}_n
-\vspace{-.3in}
-\end{eqnarray*}
-$a$: interfacial area per unit volume \\
-${i}_n$: current transferred from the matrix to the electrolyte
+\vspace{0.1in}
+\textbf{Conservation of charge:}
+\vspace{-0.1in}
 \begin{equation*}
-{i}_n = \underbrace{C \frac{\partial}{\partial t} \eta}_{\rm double-layer}+
-\underbrace{{i}_0 ( \exp (\frac{\alpha_aF}{RT}\eta) - \exp (-\frac{\alpha_aF}{RT}\eta)}_{\rm faradaic})
+-\nabla \cdot i_1 =  \nabla\cdot i_2 = a {i}_n
+\vspace{-0.1in}
 \end{equation*}
+$a$: interfacial area per unit volume \\
+${i}_n$: current transferred from the matrix to the electrolyte\\
+$
+{i}_n = \underbrace{C \frac{\partial}{\partial t} \eta}_{\rm double-layer} +
+\underbrace{{i}_0 ( \exp (\frac{\alpha_aF}{RT}\eta) - \exp (-\frac{\alpha_aF}{RT}\eta)}_{\rm faradaic})
+$
+
+\vspace{0.1in}
 overpotential: 
 $
 \eta =  \phi_1 - \phi_2.
 $
 \end{block}
+\end{column}
+%-----------------------------
+\begin{column}{.30\textwidth} 
+\begin{block}{collector}
+\begin{equation*}
+i_1 = -\sigma\nabla\phi_1
+\end{equation*}
+\begin{equation*}
+-\nabla \cdot i_1 = 0
+\end{equation*}
+\end{block}
+%%
+\begin{block}{seperator}
+\begin{equation*}
+i_2 = -\kappa\nabla\phi_2
+\end{equation*}
+\begin{equation*}
+-\nabla \cdot i_2 = 0
+\end{equation*}
+\end{block}
+\end{column}
+\end{columns}
+
 
 \vfill
 \end{frame}
@@ -269,13 +296,13 @@ $
 %-----------------------------
 \begin{problock}{High Fidelity (1D) model}
 \begin{equation*}\label{eq:HF}
-\frac{\partial\eta_{HF}}{\partial\tau} = \frac{\partial^2\eta_{HF}}{\partial\xi^2}
+\frac{\partial\eta}{\partial\tau} = \frac{\partial^2\eta}{\partial\xi^2}
 \end{equation*}
 \begin{equation*}
 \left\{\begin{matrix}
-\frac{\partial\eta_{HF}}{\partial\xi}|_{\xi=0} & = & -\frac{\gamma}{1+\gamma}I(\tau)\\
-\frac{\partial\eta_{HF}}{\partial\xi}|_{\xi=1} & = & \frac{1}{1+\gamma}I(\tau) \nonumber\\
-\eta_{HF}|_{\tau=0} 					       & =  & \eta_0(\xi)
+\frac{\partial\eta}{\partial\xi}|_{\xi=0} & = & -\frac{\gamma}{1+\gamma}I(\tau)\\
+\frac{\partial\eta}{\partial\xi}|_{\xi=1} & = & \frac{1}{1+\gamma}I(\tau) \nonumber\\
+\eta|_{\tau=0} 					       & =  & \eta_0(\xi)
 \end{matrix}\right.
 \end{equation*}
 \end{problock}
@@ -348,8 +375,6 @@ ${\eta}^{avg}$ is the solution of (\ref{eq:LF_avg}) given appropriate initial co
 \end{block}
 
 
-
-
 \vfill
 \end{frame}
 
@@ -363,32 +388,151 @@ ${\eta}^{avg}$ is the solution of (\ref{eq:LF_avg}) given appropriate initial co
 \vfill
 
 
+\begin{columns}
+\begin{column}{.47\textwidth}
+%-----------------------------
 \begin{alertblock}{Quantity of Interest}
  Potential drop across the system
+ \begin{eqnarray*}
+ V^{\rm cell}(\tau) &=& \phi_{\rm col.}^L - \phi_{\rm col.}^R \\
+ 		&=& 2V_0 - 2V^{\rm elect.} - V^{\rm sep.}
+ \end{eqnarray*}
 
- $V^{\rm cell}(\tau) = \phi_{\rm col.}^L - \phi_{\rm col.}^R
-= \frac{1+2\gamma}{1+\gamma}\eta|_{\xi=1} - \frac{\gamma}{1+\gamma}\eta|_{\xi=0} - \frac{\gamma}{(1+\gamma)^2}I
- $
-\end{alertblock} 
+where 
 
+$
+V^{\rm elect.}(\tau) =  \frac{1+2\gamma}{1+\gamma}\eta|_{\xi=1} - \frac{\gamma}{1+\gamma}\eta|_{\xi=0} 
+ - \frac{\gamma}{(1+\gamma)^2}I
+$
+\end{alertblock}
 
+\end{column}
+%--------------------------------------
+\begin{column}{.53\textwidth}
+\begin{center}
+%\vspace{-4mm}
 \begin{figure}[h]
     \centering
-    \includegraphics[trim = 1.2in 2.4in 1.6in 2.8in, clip, width=0.45\textwidth]{figs/I.png}
+    \includegraphics[trim = 1.2in 2.4in 1.6in 2.8in, clip, width=1\textwidth]{figs/I.png}
     \\
-    \includegraphics[trim = 1.2in 2.4in 1.6in 2.8in, clip, width=0.45\textwidth]{figs/etaLF_HF.png}   
+    \includegraphics[trim = 1.2in 2.4in 1.6in 2.8in, clip, width=1\textwidth]{figs/etaLF_HF.png}   
     \\
-    \includegraphics[trim = 1.2in 2.4in 1.6in 2.8in, clip, width=0.45\textwidth]{figs/Vcell_HF_LF.png} 
+    \includegraphics[trim = 1.2in 2.4in 1.6in 2.8in, clip, width=1\textwidth]{figs/Vcell_HF_LF.png} 
 \end{figure}
-
-
-
+\end{center}
+\end{column}
+\end{columns}
 
 
 \vfill
 \end{frame}
 
 
+
+%%%%%%%--------------------------------------------------------------------------------------------------------------------------
+\section{Inadequecy Representation}
+%%%%%%%--------------------------------------------------------------------------------------------------------------------------
+%===============================================================================
+% SLIDE 00
+%===============================================================================
+\begin{frame}
+\frametitle{Outline}
+\vfill
+
+\vspace{0.7in}
+\tableofcontents[currentsection,currentsubsection] 
+\vspace{0.7in}
+
+\vfill
+\end{frame}
+
+%===============================================================================
+% Slide 07
+%===============================================================================
+\begin{frame}
+\frametitle{Model Inadequacy}
+\vfill
+
+We are interested in Error in QoI: \quad $\epsilon = V^{\rm cell}_{\rm HF} - V^{\rm cell}_{\rm LF}  \equiv V^{\rm electrode}_{\rm HF} - V^{\rm electrode}_{\rm LF} $\\
+Given what we know about high fidelity model $\eta_{HF}$, we can formulate inadequacy representation. 
+
+\begin{problock}{}
+\begin{itemize}
+\item Solution of low fidelity model converges to high fidelity over time i.e. modeling error is larger for higher frequency current. 
+\item The high fidelity model accounts for the time history of the current. Such history does not appear with right dependency in the low fidelity model: 
+%
+\begin{small}
+\begin{eqnarray*}
+V^{\rm electrode}_{\rm HF} =& A(\gamma)\int_0^{\tau} I(\tau') \mathcal{K}(\tau-\tau') d\tau' &+ B(\gamma) I(\tau)\\
+V^{\rm electrode}_{\rm LF} =& C(\gamma)\int_0^{\tau} I(\tau') d\tau' &+ D(\gamma) I(\tau)
+\end{eqnarray*}
+Solving PDE using Laplace transform
+\[
+\textstyle{
+\mathcal{K}(\tau-\tau') = 
+ \sum_{n=1}^\infty  e^{-n^2\pi^2(\tau-\tau')}d\tau'
+}
+\]
+\end{small}
+\item The stochastic inadequacy representation needs to account for the incomplete and uncertain history information available to the LF model.
+\end{itemize}
+\end{problock}
+
+
+\vfill
+\end{frame}
+
+
+%===============================================================================
+% Slide 08
+%===============================================================================
+\begin{frame}
+\frametitle{Model Inadequacy}
+\vfill
+
+
+\begin{columns}
+\begin{column}{.42\textwidth}
+%-----------------------------
+\begin{alertblock}{Inadequacy representation}
+\textbf{Auxiliary Stochastic ODE:}
+\begin{equation*}
+\frac{\partial\epsilon}{\partial\tau} = -\lambda\epsilon + \alpha \frac{\partial I}{\partial\tau}
+\end{equation*}
+
+where $\lambda$ is a stochastic process with following time evolution:
+\begin{equation*}
+\frac{\partial\lambda}{\partial\tau} = -c(\lambda - \lambda_{mean}) + \beta \frac{\partial W}{\partial\tau}
+\end{equation*}
+
+where $W(\tau)$ is a Wiener process.% and $(\alpha, \beta, c, \lambda_{mean})$ are parameters of inadequacy representation. 
+\end{alertblock}
+
+\end{column}
+%--------------------------------------
+\begin{column}{.59\textwidth}
+\begin{center}
+%\vspace{-4mm}
+\begin{figure}[h]
+    \centering
+    \includegraphics[trim = 1.3in 2.2in 1.6in 2.8in, clip, width=1\textwidth]{figs/error_bound.png} 
+        \\
+    \includegraphics[trim = 1.3in 2.2in 1.6in 2.8in, clip, width=1\textwidth]{figs/V_bound.png} 
+\end{figure}
+\end{center}
+\end{column}
+\end{columns}
+%====================
+\begin{block}{}
+\begin{itemize}
+\item The ODE accounts for some of hidden features of HF i.e. $\lambda\epsilon$ takes care of the Kernel $\mathcal{K}$.
+\item It needs to be trained by HF data.
+\end{itemize}
+\end{block}
+
+
+\vfill
+\end{frame}
 
 
 
