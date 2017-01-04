@@ -18,9 +18,9 @@
 %===============================================================================
 % 					  Presentation Title and Author  
 %===============================================================================
-\title[Supercapacitor]{
-Inadequecy Representation of Supercapacitor Batteries Models}
-%\subtitle{Nonlinear Deformation in Metallic Materials}
+\title[Supercapacitor Inadequecy]{
+Inadequecy Representation in Models of Supercapacitor Batteries}
+%\subtitle{}
 
 \author[Danial Faghihi]{Danial Faghihi}
 
@@ -28,7 +28,8 @@ Inadequecy Representation of Supercapacitor Batteries Models}
 $\quad~$The University of Texas at Austin
 }
 
-\date[\today]{\today}
+\date[Wed Jan 3, 2017]{PECOS Inadequecy Meeting\\
+Wednesday January 3, 2017}
 %===============================================================================
 %===============================================================================
 
@@ -174,7 +175,7 @@ by separation of charge in a double layer at the interface between electrode/ele
 \end{itemize}
 \end{block}
      \end{column}
-     \begin{column}[T]{5cm} % alternative top-align that's better for graphics
+     \begin{column}[T]{5cm} 
 	\includegraphics[trim = 0mm 0mm 0mm 0mm, clip, width=0.8\textwidth]{figs/double-layer.png}\\
 \begin{footnotesize}
 	 1. Inner Helmholtz plane, 
@@ -246,19 +247,25 @@ $\sigma$, $\kappa$: electronic/ionic conductivity.
 $a$: interfacial area per unit volume \\
 ${i}_n$: current transferred from the matrix to the electrolyte\\
 $
-{i}_n = \underbrace{C \frac{\partial}{\partial t} \eta}_{\rm double-layer} +
-\underbrace{{i}_0 ( \exp (\frac{\alpha_aF}{RT}\eta) - \exp (-\frac{\alpha_aF}{RT}\eta)}_{\rm faradaic})
+{i}_n = \underbrace{C \frac{\partial}{\partial t} \blue{\eta}}_{\rm double-layer} +
+\underbrace{{i}_0 ( \exp (\frac{\alpha_aF}{RT} \blue{\eta}) - \exp (-\frac{\alpha_cF}{RT}\blue{\eta})}_{\rm faradaic})
 $
 
-\vspace{0.1in}
+\vspace{0.07in}
+\begin{center}
 overpotential: 
 $
-\eta =  \phi_1 - \phi_2.
+\blue{\eta =  \phi_1 - \phi_2}
 $
+\end{center}
+
 \end{block}
 \end{column}
 %-----------------------------
 \begin{column}{.30\textwidth} 
+\begin{center}
+\includegraphics[trim = 2.4in 0.42in 0.7in 0.9in, clip, width=.7\textwidth]{figs/supercap_schematic.pdf}  
+\end{center}
 \begin{block}{collector}
 \begin{equation*}
 \mathbf{i}_1 = -\sigma\nabla\phi_1
@@ -292,6 +299,10 @@ $
 \vfill
 
 \begin{columns}
+\begin{column}{.47\textwidth} 
+	\includegraphics[trim = 0in 1.4in 0in 1.4in, clip, width=1\textwidth]{figs/schematic.pdf}
+\end{column}
+%-----------------------------
 \begin{column}{.47\textwidth}
 \begin{itemize}
 \begin{small}
@@ -302,29 +313,9 @@ $
 \end{small}
 \end{itemize}
 \end{column}
-%-----------------------------
-\begin{column}{.47\textwidth} 
-	\includegraphics[trim = 0in 1.4in 0in 1.4in, clip, width=1\textwidth]{figs/schematic.pdf}
-\end{column}
 \end{columns}
 %%====================
 \begin{columns}
-\begin{column}{.47\textwidth}
-%-----------------------------
-\begin{problock}{High Fidelity (1D) model}
-\begin{equation*}\label{eq:HF}
-\frac{\partial\eta}{\partial\tau} = \frac{\partial^2\eta}{\partial\xi^2}
-\end{equation*}
-\begin{equation*}
-\left\{\begin{matrix}
-\frac{\partial\eta}{\partial\xi}|_{\xi=0} & = & -\frac{\gamma}{1+\gamma}I(\tau)\\
-\frac{\partial\eta}{\partial\xi}|_{\xi=1} & = & \frac{1}{1+\gamma}I(\tau) \nonumber\\
-\eta|_{\tau=0} 					       & =  & \eta_0(\xi)
-\end{matrix}\right.
-\end{equation*}
-\end{problock}
-\end{column}
-%-----------------------------
 \begin{column}{.47\textwidth}
 \vspace{-0.1in}
 \begin{alertblock}{Modeling Assumptions (Sins)}
@@ -347,6 +338,23 @@ current transferred from matrix to the solution phase goes towards only charging
 \end{enumerate}
 \end{alertblock}
 \end{column}
+%-----------------------------
+\begin{column}{.47\textwidth}
+\begin{problock}{High Fidelity (1D) model}
+\begin{equation*}\label{eq:HF}
+\frac{\partial\eta}{\partial\tau} = \frac{\partial^2\eta}{\partial\xi^2}
+\end{equation*}
+\begin{equation*}
+\left\{\begin{matrix}
+\frac{\partial\eta}{\partial\xi}|_{\xi=0} & = & -\frac{\gamma}{1+\gamma}I(\tau)\\
+\frac{\partial\eta}{\partial\xi}|_{\xi=1} & = & \frac{1}{1+\gamma}I(\tau) \nonumber\\
+\eta|_{\tau=0} 					       & =  & \eta_0(\xi)
+\end{matrix}\right.
+\end{equation*}
+\end{problock}
+\end{column}
+%-----------------------------
+
 \end{columns}
 
 
@@ -386,9 +394,9 @@ where $a$, $b$, and $c$ can be obtained from PDE+BCs of HF model.
 \begin{block}{Low Fidelity (0D) model}
 \begin{equation*}\label{eq:LF}
 \eta_{LF}(\xi,\tau) = 
-\frac{1}{2}I^*(\tau)\xi^2 - I^*(\tau) \frac{\gamma}{1+\gamma}\xi + {\eta}^{avg}(\tau) - \frac{I^*(\tau)}{6} + \frac{I^*(\tau)}{2}\frac{\gamma}{1+\gamma}
+\frac{1}{2}I(\tau)\xi^2 - I(\tau) \frac{\gamma}{1+\gamma}\xi + {\eta}^{avg}(\tau) - \frac{I(\tau)}{6} + \frac{I(\tau)}{2}\frac{\gamma}{1+\gamma}
 \end{equation*}
-${\eta}^{avg}$ is the solution of (\ref{eq:LF_avg}) given appropriate initial condition.
+${\eta}^{avg}$ is the solution of ODE ($\frac{\partial{\eta}^{avg}}{\partial\tau} = I$) given appropriate initial condition.
 \end{block}
 
 
@@ -406,26 +414,34 @@ ${\eta}^{avg}$ is the solution of (\ref{eq:LF_avg}) given appropriate initial co
 
 
 \begin{columns}
-\begin{column}{.47\textwidth}
+\begin{column}{.52\textwidth}
 %-----------------------------
 \begin{alertblock}{Quantity of Interest}
  Potential drop across the system
  \begin{eqnarray*}
- V^{\rm cell}(\tau) &=& \phi_{\rm col.}^L - \phi_{\rm col.}^R \\
+ V^{\rm cell}(\tau) &=& \phi_{\rm collector}^L - \phi_{\rm collector}^R \\
  		&=& 2V_0 - 2V^{\rm elect.} - V^{\rm sep.}
  \end{eqnarray*}
 
 where 
 
 $
-V^{\rm elect.}(\tau) =  \frac{1+2\gamma}{1+\gamma}\eta|_{\xi=1} - \frac{\gamma}{1+\gamma}\eta|_{\xi=0} 
+V^{\rm elect.}(\tau) =  \phi_{\rm 1}|_{\xi=0} - \phi_{\rm 2}|_{\xi=1} = \frac{1+2\gamma}{1+\gamma}\eta|_{\xi=1} - \frac{\gamma}{1+\gamma}\eta|_{\xi=0} 
  - \frac{\gamma}{(1+\gamma)^2}I
 $
+
+and
+
+$
+V^{\rm sep.}(\tau) =  
+I\frac{L_s}{\kappa_s}
+$
+
 \end{alertblock}
 
 \end{column}
 %--------------------------------------
-\begin{column}{.53\textwidth}
+\begin{column}{.50\textwidth}
 \begin{center}
 %\vspace{-4mm}
 \begin{figure}[h]
@@ -542,7 +558,9 @@ where $W(\tau)$ is a Wiener process.% and $(\alpha, \beta, c, \lambda_{mean})$ a
 %====================
 \begin{block}{}
 \begin{itemize}
-\item The ODE accounts for some of hidden features of HF i.e. $\lambda\epsilon$ takes care of the Kernel $\mathcal{K}$.
+\item The ODE accounts for some of hidden features of HF i.e. 
+the term $\lambda\epsilon$ takes care of the Kernel $\mathcal{K}$ and
+the term $\alpha \frac{\partial I}{\partial\tau}$ accounts for discontinuity of $I$.
 \item It needs to be trained by HF data i.e. calibrating parameters of inadequacy representation $(\alpha, \beta, c, \lambda_{mean})$. 
 \end{itemize}
 \end{block}
