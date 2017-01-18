@@ -373,14 +373,6 @@ current transferred from matrix to the solution phase goes towards only charging
 \begin{alertblock}{Modeling Assumptions (Sins)}
 \begin{enumerate}[i.]
 
-\item Spatially
-averaging the governing equation over the entire domain length (PDE of the HF model reduces to an ODE) 
-%
-\begin{equation*}\label{eq:LF_avg}
-\eta^{avg} = \int_0^1 \eta d\xi \qquad \Rightarrow \qquad
-\frac{\partial{\eta}^{avg}}{\partial\tau} = I(\tau)
-\end{equation*}
-
 \item Assuming a quadratically varying profile for overpotential inside the electrodes
 \begin{equation*}\label{eq:quadratic}
 \eta_{LF} (\xi,\tau)= a(\tau)\xi^2 + b(\tau)\xi + c(\tau)
@@ -396,7 +388,15 @@ where $a$, $b$, and $c$ can be obtained from PDE+BCs of HF model.
 \eta_{LF}(\xi,\tau) = 
 \frac{1}{2}I(\tau)\xi^2 - I(\tau) \frac{\gamma}{1+\gamma}\xi + {\eta}^{avg}(\tau) - \frac{I(\tau)}{6} + \frac{I(\tau)}{2}\frac{\gamma}{1+\gamma}
 \end{equation*}
-${\eta}^{avg}$ is the solution of ODE ($\frac{\partial{\eta}^{avg}}{\partial\tau} = I$) given appropriate initial condition.
+${\eta}^{avg}$ is the solution of following ODE given appropriate initial condition.
+
+Spatially
+averaging the governing equation over the entire domain length
+%
+\begin{equation*}\label{eq:LF_avg}
+\eta^{avg} = \int_0^1 \eta d\xi \qquad \Rightarrow \qquad
+\frac{\partial{\eta}^{avg}}{\partial\tau} = I(\tau)
+\end{equation*}
 \end{block}
 
 
