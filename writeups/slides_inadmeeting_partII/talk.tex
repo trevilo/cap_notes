@@ -207,11 +207,11 @@ the term $\alpha \frac{\partial I}{\partial\tau}$ accounts for discontinuity of 
 
 \begin{figure}[h]
     \centering
-    \includegraphics[trim = 1.6in 0.2in 1.6in 0.2in, clip, width=0.4\textwidth]{figs/step_optim_oldInad.png} 
+    \includegraphics[trim = 4.3in 0.2in 4.3in 0.2in, clip, width=0.5\textwidth]{figs/sin_qHF_w50pi.png} 
     ~
-    \includegraphics[trim = 1.6in 0.2in 1.6in 0.2in, clip, width=0.4\textwidth]{figs/step_optim_oldInad.png} 
+    \includegraphics[trim = 4.3in 0.2in 4.3in 0.2in, clip, width=0.5\textwidth]{figs/sin_qoi_w5pi.png} 
     \vspace{-4mm}
-\caption{(a) $I = \sin (50\tau)$. (b) $I = \sin (10\tau)$}
+\caption{(a) $I = \sin (50\pi\tau)$. (b) $I = \sin (5\pi\tau)$}
 \end{figure}
 
 
@@ -230,11 +230,34 @@ the term $\alpha \frac{\partial I}{\partial\tau}$ accounts for discontinuity of 
 
 \begin{figure}[h]
     \centering
-    \includegraphics[trim = 1.6in 0.2in 1.6in 0.2in, clip, width=0.4\textwidth]{figs/step_optim_oldInad.png} 
+    \includegraphics[trim = 4.3in 0.2in 4.3in 0.2in, clip, width=0.5\textwidth]{figs/sin_error_w50pi.png} 
     ~
-    \includegraphics[trim = 1.6in 0.2in 1.6in 0.2in, clip, width=0.4\textwidth]{figs/step_optim_oldInad.png} 
+    \includegraphics[trim = 4.3in 0.2in 4.3in 0.2in, clip, width=0.5\textwidth]{figs/sin_error_w5pi.png} 
     \vspace{-4mm}
-\caption{(a) $I = \sin (50\tau)$. (b) $I = \sin (10\tau)$}
+\caption{(a) $I = \sin (50\pi\tau)$. Calibrated parameters: $c =$56.9962, $\lambda_{mean}=$28.0998, $\alpha=$0.2822;
+ (b) $I = \sin (5\pi\tau)$ Calibrated parameters: $c =$1834.5, $\lambda_{mean}=$11.8, $\alpha=$0.2395}
+\end{figure}
+
+
+\vfill
+\end{frame}
+
+
+%===============================================================================
+% Slide 07
+%===============================================================================
+\begin{frame}
+\frametitle{Closer look at behavior of over potential:}
+\vfill
+
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[trim = 4.3in 0.2in 4.3in 0.2in, clip, width=0.5\textwidth]{figs/etaLF_time.png} 
+    ~
+    \includegraphics[trim = 4.3in 0.2in 4.3in 0.2in, clip, width=0.5\textwidth]{figs/etaHF_time.png}
+        \vspace{-3mm}
+\caption{Step change current.} 
 \end{figure}
 
 
@@ -315,7 +338,7 @@ Does this form works for long time also?
 \vfill
 
 \textbf{Test Problem:}
-
+\vspace{-0.2in}
 \begin{eqnarray*}
 {\rm option 1:} & \frac{\partial\epsilon}{\partial\tau} = -\frac{\lambda}{\sqrt{\tau - {T}(\tau)}} + \alpha \frac{\partial I}{\partial\tau}\\
 {\rm option 2:} & \frac{\partial\epsilon}{\partial\tau} = -\frac{\lambda\epsilon}{\sqrt{\tau - {T}(\tau)}} + \alpha \frac{\partial I}{\partial\tau}
@@ -323,9 +346,9 @@ Does this form works for long time also?
 
 \begin{figure}[h]
     \centering
-    \includegraphics[trim = 9.6in 0.2in 9.6in 0.2in, clip, width=0.4\textwidth]{figs/eta_LF.png} 
+    \includegraphics[trim = 3.8in 0.2in 4.3in 0.2in, clip, width=0.45\textwidth]{figs/I_1cycl.png} 
     ~
-    \includegraphics[trim = 7in 0.2in 7in 0.2in, clip, width=0.4\textwidth]{figs/eta_HF.png}
+    \includegraphics[trim = 3.8in 0.2in 4.3in 0.2in, clip, width=0.45\textwidth]{figs/error_1cycl.png}
         \vspace{-3mm}
 \caption{(a) change in current with time; (b) two inadequacy options calibrated with HF data.} 
 \end{figure}
@@ -371,6 +394,57 @@ From above consideration, we postulated a possible evolution equation for ${T}(\
 \vfill
 \end{frame}
 
+
+%===============================================================================
+% Slide 12
+%===============================================================================
+\begin{frame}
+\frametitle{Model Inadequacy - Version II}
+\vfill
+
+ 
+\begin{equation*}
+\frac{\partial T}{\partial\tau} = (\tau - T(\tau)) \left| \frac{\partial I}{\partial\tau} \right|
+\end{equation*}
+
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[trim = 3.8in 0.2in 4.3in 0.2in, clip, width=0.45\textwidth]{figs/Istep.png} 
+    ~
+    \includegraphics[trim = 3.8in 0.2in 4.3in 0.2in, clip, width=0.45\textwidth]{figs/Tstep.png}
+        \vspace{-3mm}
+\end{figure}
+
+
+\vfill
+\end{frame}
+
+
+%===============================================================================
+% Slide 14
+%===============================================================================
+\begin{frame}
+\frametitle{Model Inadequacy - Version II}
+\vfill
+
+ 
+\begin{equation*}
+\frac{\partial T}{\partial\tau} = (\tau - T(\tau)) \left| \frac{\partial I}{\partial\tau} \right|
+\end{equation*}
+
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[trim = 3.8in 0.2in 4.3in 0.2in, clip, width=0.45\textwidth]{figs/Isin.png} 
+    ~
+    \includegraphics[trim = 3.8in 0.2in 4.3in 0.2in, clip, width=0.45\textwidth]{figs/Tsin.png}
+        \vspace{-3mm}
+\end{figure}
+
+
+\vfill
+\end{frame}
 
 
 
