@@ -29,7 +29,7 @@ $\quad~$The University of Texas at Austin
 }
 
 \date[Wed Jan 3, 2017]{PECOS Inadequecy Meeting\\
-Wednesday Fab 17, 2017}
+Wednesday Fab 15, 2017}
 %===============================================================================
 %===============================================================================
 
@@ -316,14 +316,16 @@ on the board ...
 \item from $\epsilon \propto \sqrt{\tau}$ one can infere $\frac{d\epsilon}{d\tau} \propto \frac{1}{\sqrt{\tau}}$
 \end{itemize}
 
+\pause
 From above consideration, we postulated a possible inadequacy representation for short time after step change  as: 
 \begin{equation*}
-\frac{\partial\epsilon}{\partial\tau} = -\frac{\lambda}{\sqrt{\tau - {T}(\tau)}} + \alpha \frac{\partial I}{\partial\tau},
+\frac{\partial\epsilon}{\partial\tau} \propto -\frac{\lambda}{\sqrt{\tau}} + \alpha \frac{\partial I}{\partial\tau},
 \end{equation*}
-where ${T}(\tau) = \tau_{jump}$ in case of step change current. \textbf{plot on the board}
+%where ${T}(\tau) = \tau_{jump}$ in case of step change current. \textbf{plot on the board}
 
+\pause
 \begin{center}
-Does this form works for long time also?
+\textbf{Does this form works for long time also?}
 \end{center}
 
 \vfill
@@ -340,10 +342,11 @@ Does this form works for long time also?
 \textbf{Test Problem:}
 \vspace{-0.2in}
 \begin{eqnarray*}
-{\rm option 1:} & \frac{\partial\epsilon}{\partial\tau} = -\frac{\lambda}{\sqrt{\tau - {T}(\tau)}} + \alpha \frac{\partial I}{\partial\tau}\\
-{\rm option 2:} & \frac{\partial\epsilon}{\partial\tau} = -\frac{\lambda\epsilon}{\sqrt{\tau - {T}(\tau)}} + \alpha \frac{\partial I}{\partial\tau}
+{\rm option 1:} & \frac{\partial\epsilon}{\partial\tau} = -\frac{\lambda}{\sqrt{\tau}} + \alpha \frac{\partial I}{\partial\tau}\\
+{\rm option 2:} & \frac{\partial\epsilon}{\partial\tau} = -\frac{\lambda\epsilon}{\sqrt{\tau}} + \alpha \frac{\partial I}{\partial\tau}
 \end{eqnarray*}
 
+\pause
 \begin{figure}[h]
     \centering
     \includegraphics[trim = 3.8in 0.2in 4.3in 0.2in, clip, width=0.45\textwidth]{figs/I_1cycl.png} 
