@@ -24,7 +24,9 @@ Inadequecy Representation in\\ Models of Supercapacitor Batteries}
 
 \author[Danial Faghihi]{Danial Faghihi}
 
-\institute[ICES]{Institute for Computational Engineering and Sciences (ICES)\\
+\institute[ICES/PECOS]{
+Center for Predictive Engineering and Computational Science (PECOS)
+Institute for Computational Engineering and Sciences (ICES)\\
 $\quad~$The University of Texas at Austin
 }
 
@@ -397,9 +399,9 @@ Represents the remaining uncertainty due to lack of information about features o
 
 \begin{itemize}
 \item Deterministic part of $\mathcal{P}(\boldsymbol{\theta})$ :
-$V^{\rm cell}_{\rm ElF} -  V^{\rm cell}_{\rm LF}$
+$V^{\rm cell}_{\rm ELF} -  V^{\rm cell}_{\rm LF}$
 \item Stochastic part of $\mathcal{P}(\boldsymbol{\theta})$: 
-$V^{\rm cell}_{\rm HlF} -  V^{\rm cell}_{\rm ELF}$
+$V^{\rm cell}_{\rm HLF} -  V^{\rm cell}_{\rm ELF}$
 \end{itemize}
 
 
@@ -485,6 +487,457 @@ where
 
 \vfill
 \end{frame}
+
+
+
+%===============================================================================
+% Slide 01
+%===============================================================================
+\begin{frame}
+\frametitle{Knowledge about the models}
+\vfill
+
+
+\begin{problock}{}
+\begin{enumerate}
+
+\item HF model is a PDE with \textit{infinite dimensional} solution space (i.e. function space) while  
+LF model is an ODEs having a \textit{finite dimensional} state vector. 
+
+%The solution to an ordinary differential equation, of order n, can be written as a linear combination of n independent solutions, with n undetermined constants- a vector space of dimension n. 
+%The solution to a partial differential equation, of order n, can be written as a linear combination of n independent solutions but with n undetermined functions. The functions themselves constitute an infinite dimensional vector space.
+
+\item for \textbf{constant current case}, asymptotic behavior of HF is equivalent to LF, i.e. solution of LF converges to HF after a certain time.
+\begin{center}
+    \includegraphics[trim = 0.in 2.4in 0.in 2.8in, clip, width=0.3\textwidth]{figs/Iconst_V_hf_lf.png} 
+
+\end{center}
+
+\item \textbf{Principles of Fading Memory}\footnote{
+Coleman, B.D. and E. H. Dill., 1971. Thermodynamic restrictions on the constitutive equations of electromagnetic theory.},\footnote{
+Coleman, B.D. and Noll, W., 1961. Foundations of linear viscoelasticity.}
+
+XXXX
+ 
+
+\end{enumerate}
+\end{problock}
+
+
+\vfill
+\end{frame}
+
+
+
+%===============================================================================
+% Slide 01
+%===============================================================================
+\begin{frame}
+\frametitle{Constructing ELF model}
+\vfill
+
+
+\textbf{Delay Differential Equations (DDEs):}
+
+
+
+\begin{itemize}
+\item DDEs belong to the class of systems with the functional state, i.e. PDEs which are infinite dimensional. 
+
+\end{itemize}
+
+
+
+\vfill
+\end{frame}
+
+
+
+%===============================================================================
+% Slide 01
+%===============================================================================
+\begin{frame}
+\frametitle{Constructing ELF model}
+\vfill
+
+
+\begin{block}{LF model}
+$
+V_{\rm LF}(\tau) = {\eta}^{avg}(\tau) + C_{\rm LF} I(\tau)
+$
+; \qquad
+$
+\frac{\partial{\eta}^{avg}}{\partial\tau} = I(\tau) 
+$
+\begin{center}
+$
+{\rm with \; IC:\;} {\eta}^{avg}(0)=0, \;  \tau>0
+$
+\end{center}
+\end{block}
+
+Enhancing LF model by creating a delay equation (DDE):
+
+
+\begin{alertblock}{ELF model}
+$
+V_{\rm ELF}(\tau) = \hat{\eta}(\tau) + C_{\rm ELF} I(\tau - t_s)
+$
+; \qquad
+$
+\frac{\partial{\hat{\eta}}}{\partial\tau} = I(\tau- t_s) 
+$
+\begin{center}
+$
+{\rm with \; IC:\;} {\hat{\eta}}(0)=0, \;  \tau>0
+$
+
+$
+{\rm and \; Initial \; Finction:\;} I(\tau)=\phi(\tau), \;  -t_s \leq \tau \leq 0
+$
+\end{center}
+\end{alertblock}
+
+
+\begin{enumerate}
+\item The ELF model (DDEs) belong to the class of systems with the functional state, similar to PDEs are infinite dimensional. 
+
+\item ELF model, to some extend, bring the history information of the current.
+
+\item For constant current case, the asymptotic behavior of ELF model is equivalent to those of LF and HF model.
+
+\end{enumerate}
+
+
+\vfill
+\end{frame}
+
+
+
+%===============================================================================
+% Slide 01
+%===============================================================================
+\begin{frame}
+\frametitle{Inadequacy Representation: Deterministic}
+\vfill
+
+\begin{itemize}
+\item Deterministic part of $\mathcal{P}^{\rm d}(\boldsymbol{\theta})$ :
+$V^{\rm cell}_{\rm ELF} -  V^{\rm cell}_{\rm LF}$
+
+\item The objective is not to solve the full ELF system, rather using it to motivates form of inadequacy model.
+
+\item Using Taylor expansion:
+\begin{equation*}
+V_{\rm ELF}(\tau) = \hat{\eta}(\tau) + C_{\rm ELF} (
+I(\tau) - t_s \frac{\partial I}{\partial \tau} + \frac{1}{2} t_s^2 \frac{\partial^2 I}{\partial \tau^2} + \cdots
+)
+\end{equation*}
+ with
+\begin{equation*}
+\frac{\partial{\hat{\eta}}}{\partial\tau} = I(\tau) - t  \frac{\partial^2{\hat{\eta}}}{\partial\tau^2} - \frac{1}{2} t_s^2 \frac{\partial^3{\hat{\eta}}}{\partial\tau^3} + \cdots
+\end{equation*}
+
+
+\item One can increase the complexity of the ELF and corresponding $\mathcal{P}^{\rm d}$ by considering more Taylor expansion terms.
+
+\end{itemize}
+
+
+
+\vfill
+\end{frame}
+
+
+%===============================================================================
+% Slide 01
+%===============================================================================
+\begin{frame}
+\frametitle{Inadequacy Representation: Deterministic}
+\vfill
+
+
+Constructing $\mathcal{P}_1^{\rm d}(\boldsymbol{\theta})$ using one Taylor expansion term of ELF: 
+
+\begin{equation*}
+V_{\rm LF} = {\eta}^{avg} + C_{\rm LF} I
+\quad {\rm with} \quad 
+\frac{\partial{{\eta}^{avg}}}{\partial\tau} = I
+\end{equation*}
+
+\begin{equation*}
+V_{\rm ELF} = \hat{\eta} + C_{\rm ELF} (
+I - t_s \frac{\partial I}{\partial \tau}
+)
+\quad {\rm with} \quad 
+\frac{\partial{\hat{\eta}}}{\partial\tau} = I - t_s  \frac{\partial^2{\hat{\eta}}}{\partial\tau^2}
+\end{equation*}
+
+Substituting above relations in $\epsilon_1^{\rm d} = V_{\rm ELF}- V_{\rm LF}$ and evaluating $\frac{\partial\epsilon_1^{\rm d}}{\partial\tau}$ and little manipulation, one can derive:
+
+\begin{block}{}
+
+\begin{equation*}
+\mathcal{P}_1^{\rm d}(\boldsymbol{\theta}) : \quad
+\frac{\partial\epsilon_1^{\rm d}}{\partial\tau} + \lambda^2\epsilon_1^{\rm d} = \alpha \frac{\partial I}{\partial\tau} + \beta I
+\end{equation*}
+where $
+\lambda^2 = 1/t_s^2, \;
+\alpha = C_{\rm ELF} - C_{\rm LF} - \frac{1}{t_s}C_{\rm LF}, \; 
+\beta = C_{\rm ELF} - C_{\rm LF} -1
+$
+
+\end{block}
+
+\vfill
+\end{frame}
+
+
+
+
+%===============================================================================
+% Slide 01
+%===============================================================================
+\begin{frame}
+\frametitle{Inadequacy Representation: Deterministic}
+\vfill
+
+
+Using second terms of the Taylor expansions, and following similar derivation, motivates an inadequacy representation such as:
+
+\begin{problock}{}
+
+\begin{equation*}
+\mathcal{P}_2^{\rm d}(\boldsymbol{\theta}) : \quad
+\frac{\partial^2\epsilon_2^{\rm d}}{\partial\tau^2} + \lambda^2\frac{\partial\epsilon_2^{\rm d}}{\partial\tau} + \mu^2\epsilon_2
+^{\rm d} =  \alpha I + \beta \frac{\partial I}{\partial\tau} + 
+\rho \frac{\partial^2 I}{\partial\tau^2}
+\end{equation*}
+
+\end{problock}
+
+writing the above relation as system of 1st order ODEs
+
+\begin{problock}{}
+
+\begin{equation*}
+\mathcal{P}_2^{\rm d}(\boldsymbol{\theta}) :\left\{\begin{matrix}
+ x_1'(\tau) = & x_2(\tau) &\\ 
+x_2'(\tau) = & f(\tau) &-\mu^2 x_1(\tau) - \lambda^2 x_2(\tau)
+\end{matrix}\right.
+\end{equation*}
+where $\epsilon_2^{\rm d} = x_1(\tau)$ \\
+and
+$f(\tau) = \alpha I + \beta \frac{\partial I}{\partial \tau} + \rho \frac{\partial^2 I}{\partial \tau^2}$
+\end{problock}
+
+
+\vfill
+\end{frame}
+
+
+
+%===============================================================================
+% Slide 01
+%===============================================================================
+\begin{frame}
+\frametitle{Inadequacy Representation: Deterministic}
+\vfill
+
+
+\textbf{Constant current case:}
+
+Under constant current assumption, it can be shown that
+
+\begin{equation*}
+V_{\rm ELF}  \equiv V_{\rm LF} + \sum_{i = 1}^n C_i \exp(-\frac{\tau}{t_{si}})
+\end{equation*}
+
+where number of terms in the Prony series $n$ determine the complexity of the ELF model.
+
+Also, it can be shown that $V_{\rm ELF} \rightarrow V_{\rm HF}$ as $n \rightarrow \infty$.
+
+Calibrating against HF data:
+\begin{figure}
+\includegraphics[trim = 0.in 2.4in 0.in 2.8in, clip, width=0.5\textwidth]{figs/Iconst_eps_modelfit_1st.png}
+~
+\includegraphics[trim = 0.in 2.4in 0.in 2.8in, clip, width=0.5\textwidth]{figs/Iconst_eps_modelfit_2nd.png}
+\end{figure}
+
+
+\vfill
+\end{frame}
+
+
+%===============================================================================
+% Slide 01
+%===============================================================================
+\begin{frame}
+\frametitle{Inadequacy Representation: Deterministic}
+\vfill
+
+
+\textbf{Constant current case:}
+
+
+Calibrating inadequacy models against HF data: 
+
+\begin{itemize}
+
+\item $\mathcal{P}_1^{\rm d}:   \lambda = 3.47; \beta = 0.0223$
+
+\item $\mathcal{P}_2^{\rm d}:   \lambda = 9.55; \mu = 28.82; \alpha = 0.532$
+
+\end{itemize}
+
+If finite number of exponential decay enhancements, $n$, is taken into account for constructing ELF, the motivated inadequacy model is incapable of capturing HF data in a small time scale.
+\begin{figure}
+\includegraphics[trim = 1.in 1.in 1.in 1.3in, clip, width=0.5\textwidth]{figs/Iconst_eps_modelfit_1st_zoom.png}
+~
+\includegraphics[trim = 1.in 1.in 1.in 1.3in, clip, width=0.5\textwidth]{figs/Iconst_eps_modelfit_2nd_zoom.png}
+\end{figure}
+
+
+Similar results are also expected for step current case.
+
+\vfill
+\end{frame}
+
+
+
+%===============================================================================
+% Slide 01
+%===============================================================================
+\begin{frame}
+\frametitle{Inadequacy Representation: Deterministic}
+\textbf{Step current case:}
+
+\vfill
+
+\begin{figure}
+\includegraphics[trim = 0.in  2.3in 0.in 2.8in.in, clip, width=0.5\textwidth]{figs/Istep_V_hf_lf.png}
+\end{figure}
+
+\vspace{-0.1in}
+
+Calibrating inadequacy models against HF data: 
+
+\begin{itemize}
+
+\item $\mathcal{P}_1^{\rm d}:   \lambda = 4.2273; \beta = 0.8766; \alpha = 0.2764$
+
+\item $\mathcal{P}_2^{\rm d}:   \lambda = 10.64; \mu = 34.03; \alpha = 9.018; \beta = 23.9858; \rho = 0.3048$
+
+\end{itemize}
+
+\vspace{-0.1in}
+
+\begin{figure}
+\includegraphics[trim = 0.in  2.3in 0.in 2.8in, clip, width=0.5\textwidth]{figs/Istep_eps_modelfit_1st.png}
+~
+\includegraphics[trim = 0.in  2.3in 0.in 2.8in, clip, width=0.5\textwidth]{figs/Istep_eps_modelfit_2nd.png}
+\end{figure}
+
+
+\vfill
+\end{frame}
+
+
+
+
+%===============================================================================
+% Slide 01
+%===============================================================================
+\begin{frame}
+\frametitle{Inadequacy Representation: Deterministic}
+\textbf{Sinusoidal current case: High Frequency}
+
+\vfill
+
+\begin{figure}
+\includegraphics[trim = 0.in  2.3in 0.in 2.8in.in, clip, width=0.5\textwidth]{figs/Isin_high_V_hf_lf.png}
+\end{figure}
+
+\vspace{-0.1in}
+
+Calibrating inadequacy models against HF data: 
+
+\begin{itemize}
+
+\item $\mathcal{P}_1^{\rm d}:   \lambda = 3.8389; \beta = 0.4342; \alpha = -0.2555$
+
+\item $\mathcal{P}_2^{\rm d}:   \lambda = 9.4434; \mu = 29.7492; \alpha = 1333.9; \beta = -18; \rho = 0.3079$
+
+\end{itemize}
+
+\vspace{-0.1in}
+
+\begin{figure}
+\includegraphics[trim = 0.in  2.3in 0.in 2.8in, clip, width=0.5\textwidth]{figs/Isin_high_epsfit_1st.png}
+~
+\includegraphics[trim = 0.in  2.3in 0.in 2.8in, clip, width=0.5\textwidth]{figs/Isin_high_epsfit_2nd.png}
+\end{figure}
+
+
+\vfill
+\end{frame}
+
+
+%===============================================================================
+% Slide 01
+%===============================================================================
+\begin{frame}
+\frametitle{Inadequacy Representation: Deterministic}
+\textbf{Sinusoidal current case: Low Frequency}
+
+\vfill
+
+\begin{figure}
+\includegraphics[trim = 0.in  2.3in 0.in 2.8in.in, clip, width=0.5\textwidth]{figs/Isin_low_V_hf_lf.png}
+\end{figure}
+
+\vspace{-0.1in}
+
+
+\begin{itemize}
+
+\item $\mathcal{P}_1^{\rm d}:   \lambda = 3.3459; \beta = 0.0932; \alpha = -0.2352$
+
+\item $\mathcal{P}_2^{\rm d}:   \lambda = 8.8651; \mu = 26.6081; \alpha = 36.35; \beta = -15.38; \rho = 0.1415$
+
+\end{itemize}
+
+\vspace{-0.1in}
+
+\begin{figure}
+\includegraphics[trim = 0.in  2.3in 0.in 2.8in, clip, width=0.5\textwidth]{figs/Isin_low_fitmodel_1st.png}
+~
+\includegraphics[trim = 0.in  2.3in 0.in 2.8in, clip, width=0.5\textwidth]{figs/Isin_low_fitmodel_2nd.png}
+\end{figure}
+
+
+\vfill
+\end{frame}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
