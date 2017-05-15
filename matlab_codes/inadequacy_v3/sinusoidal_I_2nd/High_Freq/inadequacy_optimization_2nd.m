@@ -18,7 +18,7 @@ Nt = size(tau,1);
 %% optmization
 fun = @(x)inadq2nd(x,tau',eps_exact',I, Nt);
  
-x0 = 1.0e+03 *[0.0094    0.0295    1.3480   -0.0172    0.0003   -0.0057];
+x0 = 1.0e+05 *[0.0005    0.0021    2.8913   -0.0058    0.0003   -0.0003];
 bestx = fminsearch(fun,x0)
 
 

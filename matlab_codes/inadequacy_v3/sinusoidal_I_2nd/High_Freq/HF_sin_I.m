@@ -39,7 +39,7 @@ t_conv = a*C*L^2*(kappa+sigma)/(kappa*sigma);
 
 Iamp = (Iunscaled*(L/V0)*((kappa+sigma)/(sigma*kappa)));
 % Ins = Iamp*square(6*pi*tau');
-Ins = Iamp*sin(15*pi*tau');
+Ins = Iamp*sin(30*pi*tau');
 I = Ins';
 %I = smooth(Ins,'moving');
 

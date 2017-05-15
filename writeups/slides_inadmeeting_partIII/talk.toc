@@ -1,3 +1,0 @@
-\beamer@endinputifotherversion {3.26pt}
-\beamer@sectionintoc {1}{Model Description}{3}{0}{1}
-\beamer@sectionintoc {2}{Inadequecy Representation}{8}{0}{2}
